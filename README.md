@@ -49,7 +49,7 @@ Sur mobile, les codes clavier se tapent dans le champ « code secret » du panne
 
 Aucune étape de build : `index.html`, `style.css`, `main.js`, `eggs.js`, `marseille.js`.
 
-**Aussi dans ce repo :** [`the-weeknd/`](the-weeknd/), un second site fan sur la carrière de The Weeknd (discographie, vinyles, tournées, ventes, records, 15 secrets), construit avec le même moteur. Les librairies viennent de CDN.
+**Aussi dans ce repo :** [`the-weeknd/`](the-weeknd/), un second site fan sur la carrière d'Abel Tesfaye, alias The Weeknd : ciel étoilé avec son nom en constellation, discographie, platine qui joue les clips officiels YouTube, tournées, ventes, records et 16 secrets. Les librairies viennent de CDN.
 
 ```bash
 python -m http.server 5173
