@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Paris Saint-Germain — Ici c'est Paris</title>
-<meta name="description" content="Le Paris Saint-Germain en animations : l'histoire, les deux étoiles, et la quête du back-to-back-to-back.">
+<meta name="description" content="Le Paris Saint-Germain en animations : l'histoire, les deux étoiles, le Classique, le compteur de l'OM et 13 secrets à trouver.">
 <meta name="theme-color" content="#000c1a">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23004170'/%3E%3Crect x='42' width='16' height='100' fill='%23da291c'/%3E%3Cpolygon points='50,14 58.5,37 83,38 64,53 70.5,77 50,63.5 29.5,77 36,53 17,38 41.5,37' fill='%23e8c25a'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -14,7 +14,7 @@
 </head>
 <body class="loading">
 
-<!-- gold gradient shared by every star -->
+<!-- shared gradients -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
     <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
@@ -22,6 +22,22 @@
       <stop offset=".45" stop-color="#e8c25a"/>
       <stop offset="1" stop-color="#9c7420"/>
     </linearGradient>
+    <radialGradient id="egg-gold" cx=".35" cy=".3" r=".8">
+      <stop offset="0" stop-color="#fff6cf"/>
+      <stop offset=".5" stop-color="#e8c25a"/>
+      <stop offset="1" stop-color="#8a6416"/>
+    </radialGradient>
+    <linearGradient id="silver" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#6f7780"/>
+      <stop offset=".32" stop-color="#f4f6f9"/>
+      <stop offset=".58" stop-color="#b7bec7"/>
+      <stop offset="1" stop-color="#5f666e"/>
+    </linearGradient>
+    <filter id="dustf" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="3" seed="7" result="n"/>
+      <feColorMatrix in="n" type="matrix" values="0 0 0 0 .52  0 0 0 0 .45  0 0 0 0 .34  0 0 0 2.2 -.55" result="d"/>
+      <feComposite in="d" in2="SourceGraphic" operator="in"/>
+    </filter>
   </defs>
 </svg>
 
@@ -51,6 +67,7 @@
       <path d="M38 78 L62 116 M62 78 L38 116"/>
     </svg>
     <div class="loader-word">ICI C'EST PARIS</div>
+    <div class="loader-quip" id="quip">Chargement des étoiles…</div>
     <div class="loader-meta">Paris Saint-Germain · 1970 — 2026</div>
     <div class="loader-count"><span id="count">0</span></div>
   </div>
@@ -61,9 +78,10 @@
   <a class="brand" href="#top" data-magnetic>PSG<span>★★</span></a>
   <nav class="nav-links">
     <a href="#histoire"><span data-t="Histoire">Histoire</span></a>
-    <a href="#chiffres"><span data-t="Chiffres">Chiffres</span></a>
     <a href="#etoiles" data-tab="two"><span data-t="Étoiles">Étoiles</span></a>
-    <a href="#recherche"><span data-t="Recherche">Recherche</span></a>
+    <a href="#classique"><span data-t="Classique">Classique</span></a>
+    <a href="#compteur"><span data-t="Marseille">Marseille</span></a>
+    <a href="#recherche" class="hide-md"><span data-t="Recherche">Recherche</span></a>
     <a href="#etoiles" data-tab="three" class="nav-cta" data-magnetic>Une 3ème… ?</a>
   </nav>
 </header>
@@ -94,6 +112,10 @@
     <span>Champions d'Europe <em>★★</em></span><span class="outline">Back to back <em>✦</em></span><span>Champions d'Europe <em>★★</em></span><span class="outline">Back to back <em>✦</em></span>
     <span>Champions d'Europe <em>★★</em></span><span class="outline">Back to back <em>✦</em></span><span>Champions d'Europe <em>★★</em></span><span class="outline">Back to back <em>✦</em></span>
   </div></div>
+  <div class="mq-row r3"><div class="mq-inner">
+    <span>Marseille · 0 trophée depuis 2012 <em>✦</em></span><span class="outline">À jamais les premiers… en 1993 <em>✦</em></span><span>Marseille · 0 trophée depuis 2012 <em>✦</em></span><span class="outline">À jamais les premiers… en 1993 <em>✦</em></span>
+    <span>Marseille · 0 trophée depuis 2012 <em>✦</em></span><span class="outline">À jamais les premiers… en 1993 <em>✦</em></span><span>Marseille · 0 trophée depuis 2012 <em>✦</em></span><span class="outline">À jamais les premiers… en 1993 <em>✦</em></span>
+  </div></div>
 </section>
 
 <!-- ============ HISTOIRE ============ -->
@@ -106,49 +128,67 @@
       <div class="h-arrow fade">→</div>
     </article>
     <article class="h-panel" data-year="1970">
-      <div class="h-idx">01 / 08</div>
+      <div class="h-idx">01 / 10</div>
       <div class="h-year fade">12 août 1970</div>
       <h3>Naissance</h3>
       <p class="fade">Paris a enfin son grand club.</p>
     </article>
     <article class="h-panel" data-year="1982">
-      <div class="h-idx">02 / 08</div>
+      <div class="h-idx">02 / 10</div>
       <div class="h-year fade">1982</div>
       <h3>Premier trophée</h3>
       <p class="fade">La Coupe de France. Le Parc s'embrase.</p>
     </article>
     <article class="h-panel" data-year="1986">
-      <div class="h-idx">03 / 08</div>
+      <div class="h-idx">03 / 10</div>
       <div class="h-year fade">1986</div>
       <h3>Champion</h3>
       <p class="fade">Premier titre de champion de France.</p>
     </article>
+    <article class="h-panel om-panel" data-year="1993">
+      <div class="h-idx">04 / 10</div>
+      <div class="h-year fade">1993</div>
+      <h3>Le titre refusé</h3>
+      <p class="fade">Le titre de champion est retiré à Marseille. On nous le propose. Paris refuse. Il reste vacant — on ne ramasse pas les restes.</p>
+      <div class="garden" aria-hidden="true">
+        <svg viewBox="0 0 120 40"><path d="M4 40 Q10 14 16 40 M14 40 Q22 6 28 40 M26 40 Q34 18 38 40 M70 40 Q78 10 84 40 M82 40 Q90 2 96 40 M94 40 Q104 16 110 40"/></svg>
+      </div>
+      <button class="envelope" type="button" aria-label="Une enveloppe ?" data-cursor="?">
+        <svg viewBox="0 0 46 32"><rect x="1" y="1" width="44" height="30" rx="3" fill="#efe6d2" stroke="#9c8a63"/><path class="flap" d="M1 2 L23 19 L45 2" fill="#e2d6bb" stroke="#9c8a63"/><text x="35" y="28" font-size="8" fill="#7a6a48">₣</text></svg>
+      </button>
+    </article>
+    <article class="h-panel" data-year="1994">
+      <div class="h-idx">05 / 10</div>
+      <div class="h-year fade">1994</div>
+      <h3>Champion</h3>
+      <p class="fade">Le deuxième titre. Gagné sur le terrain, celui-là. Personne ne nous l'a retiré.</p>
+    </article>
     <article class="h-panel" data-year="1996">
-      <div class="h-idx">04 / 08</div>
+      <div class="h-idx">06 / 10</div>
       <div class="h-year fade">1996</div>
       <h3>L'Europe</h3>
       <p class="fade">Coupe des Coupes. Premier trophée européen.</p>
     </article>
     <article class="h-panel" data-year="2011">
-      <div class="h-idx">05 / 08</div>
+      <div class="h-idx">07 / 10</div>
       <div class="h-year fade">2011</div>
       <h3>Nouvelle ère</h3>
       <p class="fade">Paris voit grand. Très grand.</p>
     </article>
     <article class="h-panel" data-year="2020">
-      <div class="h-idx">06 / 08</div>
+      <div class="h-idx">08 / 10</div>
       <div class="h-year fade">2020</div>
       <h3>Lisbonne</h3>
       <p class="fade">Première finale de Ligue des champions.</p>
     </article>
     <article class="h-panel gold" data-year="2025">
-      <div class="h-idx">07 / 08</div>
+      <div class="h-idx">09 / 10</div>
       <div class="h-year fade">31 mai 2025</div>
       <h3>Munich</h3>
-      <p class="fade">5–0. La première étoile.</p>
+      <p class="fade">5–0. La première étoile. Dans la ville où Marseille avait eu la sienne, en 1993.</p>
     </article>
     <article class="h-panel gold" data-year="2026">
-      <div class="h-idx">08 / 08</div>
+      <div class="h-idx">10 / 10</div>
       <div class="h-year fade">30 mai 2026</div>
       <h3>Budapest</h3>
       <p class="fade">Back-to-back. La deuxième.</p>
@@ -165,6 +205,10 @@
     <div class="stat spot"><div class="stat-n"><span data-count="2">0</span><small>★</small></div><div class="stat-l">Ligues des champions</div></div>
     <div class="stat spot"><div class="stat-n"><span data-count="5">0</span>–0</div><div class="stat-l">Finale 2025 · plus large score de l'histoire</div></div>
     <div class="stat spot"><div class="stat-n"><span data-count="1970" data-from="1900">1900</span></div><div class="stat-l">Année de naissance</div></div>
+    <div class="stat spot"><div class="stat-n"><span data-count="16">0</span></div><div class="stat-l">Coupes de France · record</div></div>
+    <div class="stat spot"><div class="stat-n"><span data-count="6">0</span></div><div class="stat-l">Trophées en 2025 · une seule année civile</div></div>
+    <div class="stat spot"><div class="stat-n"><span data-count="364">0</span><small>j</small></div><div class="stat-l">Entre la première et la deuxième étoile</div></div>
+    <div class="stat spot om-stat" data-cursor="2012"><div class="stat-n"><span data-count="0" data-from="99">99</span></div><div class="stat-l">Trophées de l'OM depuis 2012 · on a recompté deux fois</div></div>
   </div>
 </section>
 
@@ -224,9 +268,174 @@
   </div>
 </section>
 
+<!-- ============ CLASSIQUE ============ -->
+<section id="classique" class="sec classique">
+  <div class="sec-head"><span class="sec-idx">04</span><h2 class="title split">Le Classique</h2></div>
+
+  <div class="vs">
+    <div class="vs-side vs-psg" data-cursor="★★">
+      <span class="vs-kicker">Paris Saint-Germain · depuis 1970</span>
+      <b>Paris</b>
+      <span class="vs-stars">★★ <small>2025 · 2026</small></span>
+    </div>
+    <div class="vs-mid"><span>VS</span></div>
+    <div class="vs-side vs-om" data-cursor="1993">
+      <span class="vs-kicker">Olympique de Marseille · dernière mise à jour : 2012</span>
+      <b>Marseille</b>
+      <span class="vs-stars">★ <small>1993 · puis plus rien</small></span>
+      <svg class="vs-crack" viewBox="0 0 200 200" aria-hidden="true"><path d="M120 0 L108 40 L126 62 L98 104 L116 128 L90 200 M108 40 L80 52 M98 104 L70 110 M116 128 L150 150"/></svg>
+    </div>
+  </div>
+
+  <ul class="tape">
+    <li data-l="14" data-r="9">
+      <div class="tp-v l">0</div>
+      <div class="tp-mid"><div class="tp-label">Championnats de France</div><div class="tp-bars"><i class="bl"></i><i class="br"></i></div><div class="tp-note">Le 10e ? Retiré en 1993. Proposé à Paris. Refusé.</div></div>
+      <div class="tp-v r">0</div>
+    </li>
+    <li data-l="2" data-r="1">
+      <div class="tp-v l">0</div>
+      <div class="tp-mid"><div class="tp-label">Ligues des champions</div><div class="tp-bars"><i class="bl"></i><i class="br"></i></div><div class="tp-note">La leur date de 1993. Certains de leurs supporters sont plus jeunes que leur dernier sacre européen.</div></div>
+      <div class="tp-v r">0</div>
+    </li>
+    <li data-l="16" data-r="10">
+      <div class="tp-v l">0</div>
+      <div class="tp-mid"><div class="tp-label">Coupes de France</div><div class="tp-bars"><i class="bl"></i><i class="br"></i></div><div class="tp-note">Leur dernière : 1989. Gagnée au Parc des Princes. Chez nous.</div></div>
+      <div class="tp-v r">0</div>
+    </li>
+    <li data-l="6" data-r="0">
+      <div class="tp-v l">0</div>
+      <div class="tp-mid"><div class="tp-label">Trophées en 2025</div><div class="tp-bars"><i class="bl"></i><i class="br"></i></div><div class="tp-note">Six en une seule année. Eux, c'est zéro depuis 2012.</div></div>
+      <div class="tp-v r">0</div>
+    </li>
+    <li data-l="2026" data-r="2010" data-fl="1" data-fr=".25">
+      <div class="tp-v l">0</div>
+      <div class="tp-mid"><div class="tp-label">Dernier titre de champion</div><div class="tp-bars"><i class="bl"></i><i class="br"></i></div><div class="tp-note">Seize ans d'écart. Leur dernier titre a l'âge d'aller au lycée.</div></div>
+      <div class="tp-v r">0</div>
+    </li>
+    <li data-l="5" data-r="0">
+      <div class="tp-v l">0</div>
+      <div class="tp-mid"><div class="tp-label">Classique du 08.02.2026</div><div class="tp-bars"><i class="bl"></i><i class="br"></i></div><div class="tp-note">Notre score préféré. Demandez à l'Inter.</div></div>
+      <div class="tp-v r">0</div>
+    </li>
+  </ul>
+
+  <div class="matches">
+    <div class="m-head">Morceaux choisis</div>
+    <div class="m-row">
+      <article class="match">
+        <div class="match-meta">21.05.2016 · Finale Coupe de France · Stade de France</div>
+        <div class="match-score"><span>PSG</span><b>4–2</b><span>OM</span></div>
+        <p>Une finale contre eux. Merci pour le trophée.</p>
+      </article>
+      <article class="match om-win">
+        <div class="match-meta">09.2025 · Ligue 1 · Vélodrome</div>
+        <div class="match-score"><span>OM</span><b>1–0</b><span>PSG</span></div>
+        <p>On leur a laissé celui-là. Il leur fallait bien un souvenir de la saison.</p>
+      </article>
+      <article class="match">
+        <div class="match-meta">08.01.2026 · Trophée des champions · Koweït</div>
+        <div class="match-score"><span>PSG</span><b>2–2</b><span>OM</span></div>
+        <p>4–1 aux tirs au but. 4 000 km de voyage, juste pour ça.</p>
+      </article>
+      <article class="match big">
+        <div class="match-meta">08.02.2026 · Ligue 1 · Parc des Princes</div>
+        <div class="match-score"><span>PSG</span><b>5–0</b><span>OM</span></div>
+        <p>Le même score qu'à Munich. On a nos habitudes.</p>
+      </article>
+      <article class="match">
+        <div class="match-meta">20.09.2026 · Ligue 1 · Vélodrome</div>
+        <div class="match-score"><span>OM</span><b>1–2</b><span>PSG</span></div>
+        <p>Chez eux. Devant leur public. Comme d'habitude.</p>
+      </article>
+    </div>
+  </div>
+
+  <div class="museum-cta">
+    <p>Envie de voir leur salle des trophées ? <span>Prévoir un masque anti-poussière.</span></p>
+    <button class="museum-btn" type="button" data-open="museum" data-magnetic>Visiter le musée de l'OM →</button>
+  </div>
+</section>
+
+<!-- ============ COMPTEUR ============ -->
+<section id="compteur" class="sec compteur">
+  <div class="sec-head"><span class="sec-idx">05</span><h2 class="title split">Le compteur</h2></div>
+
+  <div class="cp-main" data-since="2012-04-14T23:00:00+02:00">
+    <div class="cp-k"><span class="live"></span>En direct · Temps écoulé depuis le dernier trophée de l'OM</div>
+    <div class="cp-big">
+      <div><b data-u="y">0</b><small>ans</small></div>
+      <div><b data-u="m">0</b><small>mois</small></div>
+      <div><b data-u="d">0</b><small>jours</small></div>
+      <div class="cp-hms"><b data-u="h">00</b><i>:</i><b data-u="mi">00</b><i>:</i><b data-u="s">00</b></div>
+    </div>
+    <div class="cp-total">Soit <b data-u="total">0</b> secondes. Et ça continue.</div>
+    <p class="cp-sub">14.04.2012 : une Coupe de la Ligue. Compétition supprimée depuis. Son dernier vainqueur de l'histoire ? Paris, en 2020.</p>
+  </div>
+
+  <div class="cp-grid">
+    <article class="cp-card" data-since="1993-05-26T22:00:00+02:00">
+      <div class="cp-date">26.05.1993</div>
+      <h4>Dernière Ligue des champions</h4>
+      <div class="cp-el"><b data-u="ymd">—</b></div>
+      <p>Munich. Paris y est retourné en 2025 : 5–0.</p>
+    </article>
+    <article class="cp-card" data-since="2010-05-05T22:45:00+02:00">
+      <div class="cp-date">05.05.2010</div>
+      <h4>Dernier titre de champion</h4>
+      <div class="cp-el"><b data-u="ymd">—</b></div>
+      <p>Depuis, Paris en a soulevé douze.</p>
+    </article>
+    <article class="cp-card" data-since="1989-06-10T22:00:00+02:00">
+      <div class="cp-date">10.06.1989</div>
+      <h4>Dernière Coupe de France</h4>
+      <div class="cp-el"><b data-u="ymd">—</b></div>
+      <p>Gagnée au Parc des Princes. Le mur de Berlin tenait encore.</p>
+    </article>
+    <article class="cp-card psg" data-since="2026-05-30T23:30:00+02:00">
+      <div class="cp-date">30.05.2026</div>
+      <h4>Dernière étoile parisienne</h4>
+      <div class="cp-el"><b data-u="days">—</b></div>
+      <p>Depuis le 14.04.2012, Paris a gagné 12 championnats, 8 Coupes de France, 6 Coupes de la Ligue, 2 Ligues des champions, 1 Supercoupe d'Europe et 1 Coupe intercontinentale.</p>
+    </article>
+  </div>
+
+  <div class="cp-load">
+    <div class="cp-load-top"><span>Chargement du prochain titre de l'OM</span><b id="cpl-pc">0,0 %</b></div>
+    <div class="cp-load-bar"><i id="cpl-bar"></i></div>
+    <div class="cp-load-st" id="cpl-st">Initialisation…</div>
+  </div>
+</section>
+
+<!-- ============ SIMULATEUR ============ -->
+<section id="simulateur" class="sec simu">
+  <div class="sec-head"><span class="sec-idx">06</span><h2 class="title split">Le simulateur</h2></div>
+  <div class="simu-wrap">
+    <div class="simu-side">
+      <div class="simu-kicker">Olympique de Marseille · Saison 2026-27</div>
+      <h3 class="simu-h">Simule leur saison.<br><span>Rien n'est truqué.</span></h3>
+      <p class="simu-p">Dix mois, des milliers de scénarios possibles. Un seul résultat.</p>
+      <button id="simu-go" class="simu-go" type="button" data-magnetic data-cursor="Courage">Lancer la saison ▶</button>
+      <dl class="simu-stats">
+        <div><dt>Saisons simulées</dt><dd id="ss-n">0</dd></div>
+        <div><dt>Trophées gagnés</dt><dd id="ss-t">0</dd></div>
+        <div><dt>Entraîneurs usés</dt><dd id="ss-c">0</dd></div>
+      </dl>
+      <div class="hope">
+        <div class="hope-l"><span>Jauge d'espoir du Vieux-Port</span><b id="hope-v">50 %</b></div>
+        <div class="hope-bar"><i id="hope"></i></div>
+      </div>
+    </div>
+    <div class="simu-feed">
+      <ol id="simu-list" class="simu-list"><li class="simu-empty">Appuie sur « Lancer la saison ». Prépare-toi pour février.</li></ol>
+      <div id="simu-stamp" class="simu-stamp" aria-hidden="true">0 trophée</div>
+    </div>
+  </div>
+</section>
+
 <!-- ============ RECHERCHE ============ -->
 <section id="recherche" class="sec search">
-  <div class="sec-head center"><span class="sec-idx">04</span><h2 class="title split">La question</h2></div>
+  <div class="sec-head center"><span class="sec-idx">07</span><h2 class="title split">La question</h2></div>
   <div class="search-wrap">
     <div class="s-logo" aria-label="Cherche Paris"><span>C</span><span>h</span><span>e</span><span>r</span><span>c</span><span>h</span><span>e</span><span class="dot">·</span><span>P</span><span>a</span><span>r</span><span>i</span><span>s</span></div>
     <p class="s-question">Une seule recherche autorisée : <b>quel est le pire club ?</b></p>
@@ -248,9 +457,67 @@
 
 </main>
 
+<!-- ============ MUSÉE (modal) ============ -->
+<div class="museum" id="museum" role="dialog" aria-modal="true" aria-labelledby="mu-title" hidden>
+  <div class="mu-room" data-lenis-prevent>
+    <svg class="mu-web tl" viewBox="0 0 140 140" aria-hidden="true"><path/></svg>
+    <svg class="mu-web tr" viewBox="0 0 140 140" aria-hidden="true"><path/></svg>
+    <button class="mu-x" type="button" aria-label="Fermer le musée">×</button>
+    <div class="mu-head">
+      <div class="mu-k">Musée de l'Olympique de Marseille · entrée gratuite (personne ne vient)</div>
+      <h3 id="mu-title">La salle des trophées</h3>
+      <p>Dernière acquisition : 14.04.2012. Merci de ne pas éternuer près des vitrines.</p>
+    </div>
+    <div class="mu-cases">
+      <div class="mu-case">
+        <div class="mu-vit"><span class="mu-ghost">?</span></div>
+        <div class="mu-plaque"><b>Ligue des champions 20??</b><span>Emplacement réservé depuis 1994</span></div>
+      </div>
+      <div class="mu-case main">
+        <div class="mu-vit lit">
+          <button class="mu-cup" type="button" data-cursor="Souffle" aria-label="Souffler sur la poussière de la coupe">
+            <svg viewBox="0 0 200 240" aria-hidden="true">
+              <g id="cupg">
+                <path d="M60 44 C8 34 0 118 66 124" fill="none" stroke="url(#silver)" stroke-width="13" stroke-linecap="round"/>
+                <path d="M140 44 C192 34 200 118 134 124" fill="none" stroke="url(#silver)" stroke-width="13" stroke-linecap="round"/>
+                <path d="M50 24 H150 C150 98 130 132 100 142 C70 132 50 98 50 24Z" fill="url(#silver)"/>
+                <path d="M92 140 H108 L113 180 H87Z" fill="url(#silver)"/>
+                <path d="M70 180 H130 L138 214 H62Z" fill="url(#silver)"/>
+                <rect x="56" y="214" width="88" height="14" rx="3" fill="#565c63"/>
+              </g>
+              <use href="#cupg" class="cup-dust" filter="url(#dustf)"/>
+              <text x="100" y="224" text-anchor="middle" font-size="7.5" fill="#c9ced4" font-family="monospace" class="cup-eng">OM · 26.05.1993</text>
+            </svg>
+          </button>
+        </div>
+        <div class="mu-plaque gold"><b>Ligue des champions 1993</b><span>Pièce unique de la collection. Clique pour dépoussiérer.</span></div>
+      </div>
+      <div class="mu-case">
+        <div class="mu-vit"><svg class="mu-outline" viewBox="0 0 200 240" aria-hidden="true"><use href="#cupg"/></svg><div class="mu-tape">Retiré · Retiré · Retiré · Retiré · Retiré</div></div>
+        <div class="mu-plaque"><b>Championnat 1993</b><span>Retiré par la Fédération. Proposé à Paris. Refusé.</span></div>
+      </div>
+      <div class="mu-case">
+        <div class="mu-vit"><span class="mu-ghost">…</span></div>
+        <div class="mu-plaque"><b>Coupe de France</b><span>En attente de livraison depuis 1989</span></div>
+      </div>
+    </div>
+    <div class="mu-floor"><span>Visiteurs aujourd'hui : 1 (toi)</span><span>Ouvert toute l'année · fermé en février, comme l'équipe</span></div>
+    <div class="mu-tumble" aria-hidden="true"></div>
+    <div class="mu-dust" aria-hidden="true"></div>
+  </div>
+</div>
+
 <!-- ============ FOOTER ============ -->
 <footer class="foot">
   <div class="foot-big split">Ici c'est Paris</div>
+  <div class="foot-om">
+    <p>Aucun Marseillais n'a été blessé pendant la conception de ce site. Juste vexé.</p>
+    <p class="foot-hint">13 secrets sont cachés ici. L'OM cherche un trophée depuis 2012 — toi, tu peux chercher des œufs.</p>
+    <div class="foot-links">
+      <button id="om-mode" class="foot-link" type="button">Voir la version marseillaise du site</button>
+      <button id="eggs-open" class="foot-link" type="button">Secrets trouvés : <b class="eggs-count">0/13</b></button>
+    </div>
+  </div>
   <div class="foot-row">
     <span>Paris Saint-Germain · depuis 1970</span>
     <span>Site fan non officiel — conçu, codé &amp; animé par Claude</span>
