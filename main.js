@@ -1,8 +1,11 @@
 import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js';
+import { initEggs, egg, hasEgg, toast, onEscape, tumbleSVG, CHICKEN } from './eggs.js';
+import { setMarseilleCtx, setupFrise, setupExcuses, setupQuiz, setupGame } from './marseille.js';
 
 /* =========================================================
    PSG — Ici c'est Paris
    GSAP + ScrollTrigger + Lenis + Three.js + canvas-confetti
+   (+ eggs.js : 13 secrets, dont un poulet)
    ========================================================= */
 
 const { gsap, ScrollTrigger, Lenis } = window;
@@ -12,9 +15,12 @@ const $ = (s, c = document) => c.querySelector(s);
 const $$ = (s, c = document) => [...c.querySelectorAll(s)];
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 const esc = s => s.replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const pickOne = arr => arr[(Math.random() * arr.length) | 0];
+const pad = n => String(n).padStart(2, '0');
 const isTouch = matchMedia('(hover: none)').matches;
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const COLORS = ['#e8c25a', '#fff1b8', '#da291c', '#1f6fd1', '#ffffff'];
+const OM = ['#8fd3ef', '#ffffff', '#3aa6dd'];
 const confetti = (o) => window.confetti && window.confetti({ disableForReducedMotion: true, ...o });
 
 document.documentElement.classList.add(isTouch ? 'touch' : 'mouse');
@@ -27,6 +33,14 @@ lenis.on('scroll', ScrollTrigger.update);
 gsap.ticker.add(t => lenis.raf(t * 1000));
 gsap.ticker.lagSmoothing(0);
 lenis.stop();
+
+// modals and easter eggs can freeze the page; the loader owns it until ready
+let locks = 0, autoUntil = 0;
+function lockScroll(on) {
+  locks = Math.max(0, locks + (on ? 1 : -1));
+  if (!ready) return;
+  if (locks) lenis.stop(); else lenis.start();
+}
 
 /* ---------- split text into chars ---------- */
 function split(el) {
@@ -318,6 +332,7 @@ function pick(force) {
   inStars = z.name === 'stars';
   z.fn();
 }
+const restoreScene = () => pick(true);
 
 /* =========================================================
    CURSOR + MAGNETIC
@@ -330,18 +345,20 @@ function setupCursor() {
   const rx = gsap.quickTo(ring, 'x', { duration: .45, ease: 'power3' }), ry = gsap.quickTo(ring, 'y', { duration: .45, ease: 'power3' });
   addEventListener('pointermove', e => { dx(e.clientX); dy(e.clientY); rx(e.clientX); ry(e.clientY); }, { passive: true });
   document.addEventListener('pointerover', e => {
-    const t = e.target.closest('a,button,input,.tilt,[data-cursor],.s-sugg li');
+    const t = e.target.closest('a,button,input,.tilt,[data-cursor],.s-sugg li,summary');
     document.body.classList.toggle('cursor-hover', !!t);
     ring.dataset.label = t?.dataset?.cursor || (t?.classList?.contains('tilt') ? 'Paris' : '');
   });
-  $$('[data-magnetic]').forEach(el => {
-    const xTo = gsap.quickTo(el, 'x', { duration: .6, ease: 'elastic.out(1,.4)' }), yTo = gsap.quickTo(el, 'y', { duration: .6, ease: 'elastic.out(1,.4)' });
-    el.addEventListener('pointermove', e => {
-      const r = el.getBoundingClientRect();
-      xTo((e.clientX - r.left - r.width / 2) * .35); yTo((e.clientY - r.top - r.height / 2) * .35);
-    });
-    el.addEventListener('pointerleave', () => { xTo(0); yTo(0); });
+  $$('[data-magnetic]').forEach(magnetic);
+}
+function magnetic(el) {
+  if (isTouch) return;
+  const xTo = gsap.quickTo(el, 'x', { duration: .6, ease: 'elastic.out(1,.4)' }), yTo = gsap.quickTo(el, 'y', { duration: .6, ease: 'elastic.out(1,.4)' });
+  el.addEventListener('pointermove', e => {
+    const r = el.getBoundingClientRect();
+    xTo((e.clientX - r.left - r.width / 2) * .35); yTo((e.clientY - r.top - r.height / 2) * .35);
   });
+  el.addEventListener('pointerleave', () => { xTo(0); yTo(0); });
 }
 
 /* =========================================================
@@ -357,6 +374,7 @@ function setupGlobal() {
     if (target === null) return;
     e.preventDefault();
     if (a.dataset.tab) switchTab(a.dataset.tab);
+    autoUntil = Date.now() + 2400;
     lenis.scrollTo(target, { duration: 1.8, easing: t => 1 - Math.pow(1 - t, 4) });
   }));
 
@@ -385,7 +403,7 @@ function setupHero() {
 }
 function heroIntro() {
   ready = true;
-  lenis.start();
+  if (!locks) lenis.start();
   document.body.classList.remove('loading');
   P.morph('t:PSG', { dur: 2.8 });
   curZone = zones[0];
@@ -401,7 +419,7 @@ function heroIntro() {
 function setupMarquee() {
   const rows = $$('.mq-inner').map((el, i) => i % 2
     ? gsap.fromTo(el, { xPercent: -50 }, { xPercent: 0, duration: 26, ease: 'none', repeat: -1 })
-    : gsap.to(el, { xPercent: -50, duration: 22, ease: 'none', repeat: -1 }));
+    : gsap.to(el, { xPercent: -50, duration: i ? 34 : 22, ease: 'none', repeat: -1 }));
   const skew = $$('.mq-inner').map(el => gsap.quickSetter(el, 'skewX', 'deg'));
   let ts = 1, sk = 0;
   gsap.ticker.add(() => {
@@ -442,7 +460,7 @@ function setupHistory() {
       .from(chars, { yPercent: 120, rotate: 6, duration: .9, stagger: .025, ease: 'expo.out' })
       .from($$('.fade', p), { y: 30, opacity: 0, duration: .7, stagger: .08, ease: 'power3.out' }, '-=.65');
     zone('h' + y, { trigger: p, containerAnimation: hTween, start: 'left 50%', end: 'right 50%' },
-      () => scene('y:' + y, { gold: +y >= 2025 ? 1 : 0, opacity: .95 }));
+      () => scene('y:' + y, { gold: +y >= 2025 ? 1 : 0, opacity: y === '1993' ? .55 : .95 }));
   });
 }
 
@@ -453,12 +471,13 @@ function setupStats() {
   $$('[data-count]').forEach(el => {
     const end = +el.dataset.count, o = { v: +(el.dataset.from || 0) };
     gsap.to(o, {
-      v: end, duration: end > 100 ? 2.4 : 1.8, ease: 'power3.out',
+      v: end, duration: Math.abs(end - o.v) > 100 ? 2.4 : 1.8, ease: 'power3.out',
       scrollTrigger: { trigger: el, start: 'top 88%' },
       onUpdate: () => { el.textContent = Math.round(o.v); },
+      onComplete: () => { if (el.closest('.om-stat')) gsap.fromTo(el.closest('.stat'), { x: -8 }, { x: 0, duration: .7, ease: 'elastic.out(1.2,.25)' }); },
     });
   });
-  gsap.from('.stat', { y: 80, opacity: 0, rotateX: -20, duration: 1.1, stagger: .1, ease: 'expo.out', scrollTrigger: { trigger: '.stat-grid', start: 'top 85%' } });
+  gsap.from('.stat', { y: 80, opacity: 0, rotateX: -20, duration: 1.1, stagger: .08, ease: 'expo.out', scrollTrigger: { trigger: '.stat-grid', start: 'top 85%' } });
   $$('.spot').forEach(el => el.addEventListener('pointermove', e => {
     const r = el.getBoundingClientRect();
     el.style.setProperty('--mx', (e.clientX - r.left) + 'px'); el.style.setProperty('--my', (e.clientY - r.top) + 'px');
@@ -585,7 +604,7 @@ function setupHold() {
   const end = () => {
     if (won) return;
     btn.classList.remove('holding');
-    if (charge.v > 0 && charge.v < 1) msg.textContent = 'Lâche pas ! Maintiens jusqu\'au bout.';
+    if (charge.v > 0 && charge.v < 1) msg.textContent = 'Lâche pas ! Maintiens jusqu\'au bout. (C\'est Marseille qui lâche en février, pas nous.)';
     tw?.kill();
     tw = gsap.to(charge, { v: 0, duration: .6, ease: 'power2.out', onUpdate: render });
   };
@@ -608,7 +627,7 @@ function setupHold() {
     $('#b3-3').classList.add('lit');
     scramble($('#b3-3'), 'TO BACK ★', .8);
     label.textContent = 'Encore ?';
-    msg.innerHTML = '<b>★★★</b> Rendez-vous en finale. Paris rêve plus grand.';
+    msg.innerHTML = '<b>★★★</b> Rendez-vous en finale. Paris rêve plus grand.<span>Pendant ce temps, Marseille cherche toujours sa deuxième.</span>';
     P.pulse();
     scene('stars3', { gold: 1, opacity: .85 });
   }
@@ -631,13 +650,338 @@ function setupHold() {
 }
 
 /* =========================================================
+   LE CLASSIQUE — tale of the tape
+   ========================================================= */
+function setupClassique() {
+  gsap.timeline({ scrollTrigger: { trigger: '.vs', start: 'top 78%' } })
+    .from('.vs-psg', { xPercent: -40, opacity: 0, duration: 1.1, ease: 'expo.out' })
+    .from('.vs-om', { xPercent: 40, opacity: 0, duration: 1.1, ease: 'expo.out' }, 0)
+    .from('.vs-mid span', { scale: 0, rotate: -200, duration: 1, ease: 'back.out(2)' }, .35)
+    .add(() => gsap.fromTo('.vs', { x: -8 }, { x: 0, duration: .7, ease: 'elastic.out(1.2,.2)' }), .55)
+    .fromTo('.vs-crack path', { strokeDashoffset: 400 }, { strokeDashoffset: 0, duration: .6, ease: 'power2.in' }, .7)
+    .to('.vs-om', { rotate: 2.2, y: 14, transformOrigin: '0% 100%', duration: 1.3, ease: 'bounce.out' }, 1.1);
+
+  $$('.tape li').forEach(li => {
+    const l = +li.dataset.l, r = +li.dataset.r, mx = Math.max(l, r) || 1;
+    const fl = li.dataset.fl ? +li.dataset.fl : l / mx, fr = li.dataset.fr ? +li.dataset.fr : r / mx;
+    const [bl, br] = $$('.tp-bars i', li), vl = $('.tp-v.l', li), vr = $('.tp-v.r', li);
+    const year = l > 1000, o = { l: year ? l - 40 : 0, r: year ? r - 40 : 0 };
+    vl.textContent = o.l; vr.textContent = o.r;
+    gsap.timeline({ scrollTrigger: { trigger: li, start: 'top 88%' } })
+      .from(li, { y: 40, opacity: 0, duration: .8, ease: 'expo.out' })
+      .to(bl, { scaleX: fl, duration: 1.3, ease: 'expo.out' }, .1)
+      .to(br, { scaleX: Math.max(fr, .012), duration: 1.3, ease: 'expo.out' }, .1)
+      .to(o, { l, r, duration: 1.3, ease: 'power3.out', onUpdate: () => { vl.textContent = Math.round(o.l); vr.textContent = Math.round(o.r); } }, .1)
+      .fromTo(vr, { rotate: 0 }, { rotate: -6, y: 6, duration: .8, ease: 'bounce.out' }, 1.1);
+  });
+
+  gsap.from('.match', { y: 60, opacity: 0, rotateX: -16, stagger: .09, duration: 1, ease: 'expo.out', scrollTrigger: { trigger: '.m-row', start: 'top 85%' } });
+  gsap.from('.museum-cta > *', { y: 30, opacity: 0, stagger: .1, duration: .9, ease: 'expo.out', scrollTrigger: { trigger: '.museum-cta', start: 'top 90%' } });
+
+  $('.vs-om').addEventListener('click', () => {
+    toast(pickOne([
+      'Clique autant que tu veux : le palmarès ne bougera pas.',
+      'Le côté marseillais est en maintenance depuis 2012.',
+      'Tu as cliqué sur Marseille. Il ne s\'est rien passé. Comme depuis 2012.',
+    ]));
+    gsap.fromTo('.vs-om', { x: -10 }, { x: 0, duration: .6, ease: 'elastic.out(1.2,.25)' });
+  });
+  $('.vs-psg').addEventListener('click', e => {
+    const r = e.currentTarget.getBoundingClientRect();
+    confetti({ particleCount: 60, spread: 70, origin: { x: (r.left + r.width / 2) / innerWidth, y: (r.top + r.height / 2) / innerHeight }, colors: COLORS, shapes: ['star'] });
+  });
+
+  zone('classique', { trigger: '#classique', start: 'top 55%', end: 'bottom 55%' }, () => scene('t:5–0', { opacity: .42 }));
+}
+
+/* =========================================================
+   LE COMPTEUR — live time since Marseille's last trophy
+   ========================================================= */
+function elapsed(from, now) {
+  let y = now.getFullYear() - from.getFullYear(), mo = now.getMonth() - from.getMonth(), d = now.getDate() - from.getDate();
+  let h = now.getHours() - from.getHours(), mi = now.getMinutes() - from.getMinutes(), s = now.getSeconds() - from.getSeconds();
+  if (s < 0) { s += 60; mi--; }
+  if (mi < 0) { mi += 60; h--; }
+  if (h < 0) { h += 24; d--; }
+  if (d < 0) { d += new Date(now.getFullYear(), now.getMonth(), 0).getDate(); mo--; }
+  if (mo < 0) { mo += 12; y--; }
+  return { y, mo, d, h, mi, s };
+}
+function setupCompteur() {
+  const main = $('.cp-main'), from = new Date(main.dataset.since);
+  const U = k => $(`[data-u="${k}"]`, main);
+  const cards = $$('.cp-card').map(c => ({ c, from: new Date(c.dataset.since), ymd: $('[data-u="ymd"]', c), days: $('[data-u="days"]', c) }));
+  const fmt = new Intl.NumberFormat('fr-FR');
+  let lastS = -1;
+  function tick() {
+    const now = new Date(), e = elapsed(from, now);
+    U('y').textContent = e.y; U('m').textContent = e.mo; U('d').textContent = e.d;
+    U('h').textContent = pad(e.h); U('mi').textContent = pad(e.mi); U('s').textContent = pad(e.s);
+    U('total').textContent = fmt.format(Math.floor((now - from) / 1000));
+    if (e.s !== lastS && lastS !== -1 && !reduce) gsap.fromTo(U('s'), { y: -8, opacity: .4 }, { y: 0, opacity: 1, duration: .35, ease: 'back.out(3)' });
+    lastS = e.s;
+    cards.forEach(k => {
+      const x = elapsed(k.from, now);
+      if (k.ymd) k.ymd.textContent = `${x.y} ans · ${x.mo} mois · ${x.d} j`;
+      if (k.days) k.days.textContent = `il y a ${fmt.format(Math.floor((now - k.from) / 864e5))} jours`;
+    });
+  }
+  tick();
+  setInterval(tick, 1000);
+
+  gsap.from('.cp-main', { y: 60, opacity: 0, duration: 1.1, ease: 'expo.out', scrollTrigger: { trigger: '.cp-main', start: 'top 85%' } });
+  gsap.from('.cp-card', { y: 70, opacity: 0, stagger: .1, duration: 1, ease: 'expo.out', scrollTrigger: { trigger: '.cp-grid', start: 'top 88%' } });
+
+  // "loading the next Marseille trophy…" — it never gets there
+  const bar = $('#cpl-bar'), pc = $('#cpl-pc'), st = $('#cpl-st');
+  const UPS = ['Recherche d\'un nouveau projet…', 'Recrutement de 14 joueurs…', 'Nomination d\'un nouvel entraîneur…', 'Victoire en match amical…', 'Le Vélodrome y croit…', 'Champion d\'automne (provisoire)…', 'Analyse du calendrier…', 'Conférence de presse très ambitieuse…'];
+  const FAILS = ['Février détecté. Annulation.', 'Élimination en Coupe. Réinitialisation…', 'Classique perdu. Retour à zéro.', 'Erreur 1993 : trophée introuvable.', 'Changement d\'entraîneur. Tout est à refaire.'];
+  let p = 0, limit = 6, active = false, timer = 0;
+  const show = v => { gsap.to(bar, { scaleX: v / 100, duration: .6, ease: 'power2.out' }); pc.textContent = v.toFixed(1).replace('.', ',') + ' %'; };
+  function step() {
+    if (!active) return;
+    if (p < limit) {
+      p = Math.min(limit, p + .4 + Math.random() * 1.4);
+      st.textContent = pickOne(UPS); st.classList.remove('fail');
+      show(p);
+      timer = setTimeout(step, 750 + Math.random() * 650);
+    } else {
+      st.textContent = pickOne(FAILS); st.classList.add('fail');
+      gsap.fromTo('.cp-load', { x: -8 }, { x: 0, duration: .6, ease: 'elastic.out(1.2,.25)' });
+      p = 0; limit = 3 + Math.random() * 9;
+      show(0);
+      timer = setTimeout(step, 2000);
+    }
+  }
+  ScrollTrigger.create({
+    trigger: '.cp-load', start: 'top bottom', end: 'bottom top',
+    onToggle: s => { active = s.isActive; clearTimeout(timer); if (active) timer = setTimeout(step, 500); },
+  });
+
+  zone('compteur', { trigger: '#compteur', start: 'top 55%', end: 'bottom 55%' }, () => scene('t:2012', { opacity: .3 }));
+}
+
+/* =========================================================
+   LE SIMULATEUR — simulate Marseille's season
+   ========================================================= */
+const MONTHS = [
+  ['Août', [
+    ['Présentation d\'un nouveau projet ambitieux. Le sixième en cinq ans.', 15],
+    ['14 recrues, 13 départs. Le kiné demande un organigramme.', 10],
+    ['Victoire 6–0 en amical. Le Vieux-Port imprime déjà les t-shirts « Champions 2027 ».', 18],
+    ['« Cette année, c\'est la bonne. » — Tout Marseille, comme chaque été depuis 1993.', 12],
+  ]],
+  ['Septembre', [
+    ['Classique perdu. Explication officielle : la pelouse, l\'arbitre et le mistral.', -12],
+    ['Trois victoires de suite. On parle déjà de doublé.', 16],
+    ['Leader après 5 journées. Paris a deux matchs en retard. Personne n\'en parle.', 14],
+  ]],
+  ['Octobre', [
+    ['Défaite en Europe. « On se concentre sur le championnat. »', -8],
+    ['Six matchs sans défaite. Le Vélodrome chante déjà la Coupe d\'Europe.', 14],
+    ['Conférence de presse de 47 minutes. Personne n\'a compris, tout le monde a applaudi.', 4],
+  ]],
+  ['Novembre', [
+    ['Champion d\'automne… de la première quinzaine de novembre.', 8],
+    ['Réunion de crise. Puis réunion sur la réunion de crise.', -14],
+    ['Le président promet un recrutement XXL en janvier.', 6],
+  ]],
+  ['Décembre', [
+    ['Changement d\'entraîneur. Le nouveau a « un vrai projet de jeu ».', -6, 1],
+    ['Élimination européenne. « Ce n\'était pas l\'objectif. »', -10],
+    ['Victoire au bout du temps additionnel. Le Vélodrome parle de destin.', 12],
+  ]],
+  ['Janvier', [
+    ['Coupe de France : éliminés par l\'US Saint-Glinglin (R1). Prochain trophée prévu à la même date.', -14],
+    ['Mercato d\'hiver : quatre latéraux droits recrutés. Toujours aucun gardien.', 5],
+    ['Trophée des champions perdu contre Paris. Même délocalisé à l\'autre bout du monde.', -10],
+  ]],
+  ['Février', [
+    ['Février arrive. Comme chaque année. Personne ne l\'avait vu venir.', -20],
+    ['Cinq matchs sans victoire. « C\'est juste un petit passage à vide. »', -18],
+    ['Défaite au Parc. 5–0. Par nostalgie.', -22],
+  ]],
+  ['Mars', [
+    ['Changement d\'entraîneur (bis). L\'adjoint de l\'adjoint assure l\'intérim.', -8, 1],
+    ['L\'objectif officiel passe de « titre » à « podium ».', -10],
+    ['Victoire 1–0 contre la lanterne rouge. Le Vélodrome y croit à nouveau.', 10],
+  ]],
+  ['Avril', [
+    ['Course à la 3e place avec Lens, Lille, Monaco… et le doute.', -6],
+    ['L\'objectif officiel passe de « podium » à « Europe ».', -10],
+    ['Le Vélodrome siffle. Puis chante. Puis siffle.', -4],
+  ]],
+];
+const RANK_TXT = r => r === 2 ? '2e. « On a fait trembler Paris. » Paris n\'a rien senti.'
+  : r === 3 ? '3e. « Une saison pleine. » Pleine de quoi, on cherche encore.'
+  : r === 4 ? '4e. « Il faut construire. » Ça fait depuis 1993 qu\'on construit.'
+  : `${r}e. « Saison de transition. » La quatorzième de suite.`;
+
+function setupSimu() {
+  const btn = $('#simu-go'), list = $('#simu-list'), stamp = $('#simu-stamp'), hopeEl = $('#hope'), hopeV = $('#hope-v');
+  const N = $('#ss-n'), C = $('#ss-c');
+  let seasons = 0, coaches = 0, hope = 50, busy = false;
+  const setHope = () => { hopeEl.style.width = hope + '%'; hopeV.textContent = Math.round(hope) + ' %'; };
+  const bump = el => gsap.fromTo(el, { scale: 1.35 }, { scale: 1, duration: .6, ease: 'back.out(3)' });
+  const line = (mo, ev, cls) => {
+    const li = document.createElement('li');
+    li.className = cls;
+    li.innerHTML = `<span class="mo">${mo}</span><span class="ev">${ev}</span>`;
+    list.append(li);
+    gsap.from(li, { x: 40, opacity: 0, duration: .5, ease: 'expo.out' });
+    return li;
+  };
+  const rankRoll = () => { const x = Math.random(); return x < .2 ? 2 : x < .45 ? 3 : x < .7 ? 4 : x < .85 ? 5 : 6 + ((Math.random() * 4) | 0); };
+  const stampShow = (txt, dream) => {
+    stamp.textContent = txt;
+    stamp.classList.toggle('dream', !!dream);
+    gsap.fromTo(stamp, { scale: 2.4, opacity: 0, rotate: -30 }, { scale: 1, opacity: 1, rotate: -12, duration: .45, ease: 'power4.in' });
+    gsap.fromTo('.simu-feed', { x: -6 }, { x: 0, duration: .6, ease: 'elastic.out(1.3,.2)', delay: .45 });
+  };
+
+  btn.addEventListener('click', async () => {
+    if (busy) return;
+    busy = true;
+    btn.disabled = true;
+    seasons++;
+    list.innerHTML = '';
+    gsap.set(stamp, { opacity: 0 });
+    hope = 50; setHope();
+    const wait = reduce ? 80 : 560;
+    for (const [mo, evs] of MONTHS) {
+      const [t, h, coach] = pickOne(evs);
+      hope = Math.max(2, Math.min(100, hope + h + (Math.random() * 6 - 3)));
+      if (coach) { coaches++; C.textContent = coaches; bump(C); }
+      line(mo, t, h >= 0 ? 'up' : 'down');
+      setHope();
+      await sleep(wait);
+    }
+    const rank = rankRoll();
+    if (!hasEgg('reve') && (Math.random() < .05 || seasons === 6)) {
+      line('Mai', '<b>CHAMPIONS DE FRANCE !!!</b> Le Vieux-Port explose. Klaxons jusqu\'à Aubagne.', 'end');
+      hope = 100; setHope();
+      stampShow('Champions !', true);
+      const r = stamp.getBoundingClientRect();
+      confetti({ particleCount: 160, spread: 100, startVelocity: 45, colors: OM, origin: { x: (r.left + r.width / 2) / innerWidth, y: (r.top + r.height / 2) / innerHeight } });
+      await sleep(2600);
+      line('7h12', '…Le réveil sonne. C\'était un rêve. Retour à la réalité : ' + RANK_TXT(rank), 'down');
+      hope = 6; setHope();
+      egg('reve');
+    } else {
+      line('Mai', RANK_TXT(rank), 'end');
+    }
+    await sleep(wait);
+    line('Bilan', '0 trophée. Les t-shirts « Champions 2027 » finissent en pyjamas.', 'end');
+    stampShow('0 trophée');
+    N.textContent = seasons; bump(N);
+    if (!coaches) { coaches = 1; C.textContent = 1; bump(C); }
+    if (seasons === 10) toast('10 saisons simulées. Toujours 0 trophée. Statistiquement, c\'est presque un exploit.');
+    if (seasons === 25) toast('25 saisons. Tu y crois plus que leur direction. Respect.');
+    btn.textContent = 'Relancer (ça ne changera rien) ↻';
+    btn.disabled = false;
+    busy = false;
+  });
+
+  gsap.from('.simu-side > *', { y: 40, opacity: 0, stagger: .08, duration: .9, ease: 'expo.out', scrollTrigger: { trigger: '.simu-wrap', start: 'top 80%' } });
+  gsap.from('.simu-feed', { y: 80, opacity: 0, rotateX: -10, duration: 1.1, ease: 'expo.out', scrollTrigger: { trigger: '.simu-wrap', start: 'top 80%' } });
+
+  zone('simu', { trigger: '#simulateur', start: 'top 55%', end: 'bottom 55%' }, () => scene('t:0', { opacity: .35 }));
+}
+
+/* =========================================================
+   LE MUSÉE DE L'OM (modal)
+   ========================================================= */
+function webPath() {
+  const R = [24, 50, 80, 112], A = [6, 20, 36, 52, 68, 84].map(a => a * Math.PI / 180);
+  let d = A.map(a => `M0 0L${(Math.cos(a) * 140).toFixed(1)} ${(Math.sin(a) * 140).toFixed(1)}`).join('');
+  R.forEach(r => {
+    for (let i = 0; i < A.length - 1; i++) {
+      const a = A[i], b = A[i + 1], m = (a + b) / 2, rr = r * .86;
+      d += `M${(Math.cos(a) * r).toFixed(1)} ${(Math.sin(a) * r).toFixed(1)}Q${(Math.cos(m) * rr).toFixed(1)} ${(Math.sin(m) * rr).toFixed(1)} ${(Math.cos(b) * r).toFixed(1)} ${(Math.sin(b) * r).toFixed(1)}`;
+    }
+  });
+  return d;
+}
+function setupMuseum() {
+  const m = $('#museum'), room = $('.mu-room', m), cup = $('.mu-cup', m);
+  $$('.mu-web path', m).forEach(p => p.setAttribute('d', webPath()));
+  $('.mu-tumble', m).innerHTML = tumbleSVG();
+  $('.mu-dust', m).innerHTML = Array.from({ length: 28 }, () =>
+    `<span style="left:${(Math.random() * 100).toFixed(1)}%;top:${(20 + Math.random() * 75).toFixed(1)}%;--d:${(6 + Math.random() * 8).toFixed(1)}s;--dl:-${(Math.random() * 10).toFixed(1)}s"></span>`).join('');
+
+  let offEsc = null, dust = 1, wipes = 0, opener = null;
+  const open = e => {
+    opener = e?.currentTarget || null;
+    m.hidden = false;
+    lockScroll(true);
+    offEsc = onEscape(close);
+    gsap.fromTo(m, { opacity: 0 }, { opacity: 1, duration: .4 });
+    gsap.fromTo(room, { y: 60, scale: .94, opacity: 0 }, { y: 0, scale: 1, opacity: 1, duration: .8, ease: 'expo.out' });
+    gsap.from($$('.mu-case', m), { y: 50, opacity: 0, stagger: .08, duration: .8, ease: 'expo.out', delay: .15 });
+    $('.mu-x', m).focus({ preventScroll: true });
+  };
+  const close = () => {
+    offEsc?.(); offEsc = null;
+    gsap.to(m, { opacity: 0, duration: .3, onComplete: () => { m.hidden = true; } });
+    lockScroll(false);
+    opener?.focus({ preventScroll: true });
+  };
+  $$('[data-open="museum"]').forEach(b => b.addEventListener('click', open));
+  $('.mu-x', m).addEventListener('click', close);
+  m.addEventListener('click', e => { if (e.target === m) close(); });
+
+  cup.addEventListener('click', () => {
+    const r = cup.getBoundingClientRect();
+    if (dust <= 0) {
+      confetti({ particleCount: 50, spread: 80, origin: { x: (r.left + r.width / 2) / innerWidth, y: (r.top + r.height / 3) / innerHeight }, colors: ['#ffffff', '#dfe4ea', '#e8c25a'], shapes: ['star'] });
+      toast('Elle brille. Profites-en : la prochaine n\'arrive pas demain.');
+      return;
+    }
+    wipes++;
+    dust = Math.max(0, 1 - wipes / 5);
+    cup.style.setProperty('--dust', dust);
+    confetti({ particleCount: 36, spread: 100, startVelocity: 18, gravity: .35, ticks: 220, scalar: .7, colors: ['#8b7d66', '#a89a80', '#6e6352'], origin: { x: (r.left + r.width / 2) / innerWidth, y: (r.top + r.height / 3) / innerHeight } });
+    gsap.fromTo(cup, { rotate: -4 }, { rotate: 0, duration: .5, ease: 'elastic.out(1.4,.3)' });
+    if (wipes === 1) toast('Pfiou… 33 ans de poussière. Continue.');
+    if (dust === 0) {
+      cup.classList.add('clean');
+      toast('Brillante comme au 26 mai 1993. Dernière fois qu\'on l\'a vue comme ça.', { dur: 6000 });
+      egg('poussiere');
+    }
+  });
+}
+
+/* =========================================================
    SEARCH — every road leads to Marseille
    ========================================================= */
 let searchDone = false;
+const norm = s => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9 ]/g, ' ').replace(/\s+/g, ' ').trim();
+function verdict(real, lucky) {
+  const n = norm(real), s = esc(real.slice(0, 40));
+  const M = '<b>Marseille</b>';
+  if (!n) return lucky ? `Vous avez de la chance : ${M}. Comme toujours.` : `Recherche vide ? On a deviné quand même : ${M}.`;
+  if (/^(om|l om|marseille|olympique de marseille|olympique marseille)$/.test(n)) return 'Bonne réponse. <b>Évidemment.</b>';
+  if (/^(psg|paris|paris sg|paris saint germain|ici c est paris)$/.test(n)) return `Vous avez tapé <s>${s}</s>. On ne cherche pas le pire club en tapant le meilleur. Corrigé : ${M}.`;
+  if (/^(nimes|nimes olympique|crocos|les crocos)$/.test(n)) return `<s>${s}</s> ? Respect aux Crocos 🐊. Mais non : ${M}.`;
+  if (/^(lyon|ol|olympique lyonnais)$/.test(n)) return `<s>${s}</s>… bien tenté. Mais la question, c'est <i>le</i> pire. Corrigé : ${M}.`;
+  if (/^(arsenal)$/.test(n)) return `<s>${s}</s> ? On les a déjà battus en finale, ils ont assez donné. Corrigé : ${M}.`;
+  if (/^(inter|inter milan|internazionale)$/.test(n)) return `<s>${s}</s> ? 5–0 en finale, ils ont assez souffert. Corrigé : ${M}.`;
+  if (/^(real|real madrid|barca|barcelone|fc barcelone|bayern|liverpool|city|manchester city|chelsea)$/.test(n)) return `<s>${s}</s> ? Eux au moins ont gagné quelque chose cette décennie. Corrigé : ${M}.`;
+  if (/^(lens|rc lens)$/.test(n)) return `<s>${s}</s> ? Ils ont gagné une Coupe de France en 2026, eux. Corrigé : ${M}.`;
+  return `Vous avez tapé <s>${s}</s>. Nous avons corrigé : ${M}.`;
+}
+const META = ['', '', ' · Le moteur commence à soupirer', ' · Toujours la même réponse', ' · Tu sais que ça ne changera pas ?'];
+const PAA = [
+  ['L\'OM a-t-il gagné quelque chose depuis 2012 ?', 'Non. Le dernier trophée est une Coupe de la Ligue, le 14 avril 2012. La compétition a été supprimée depuis. Son tout dernier vainqueur, en 2020 ? Paris.'],
+  ['Le titre de 1993 compte-t-il ?', 'Retiré par la Fédération après l\'affaire VA-OM. Proposé à Paris, deuxième. Refusé. Le titre est resté vacant — comme la vitrine depuis.'],
+  ['Pourquoi l\'OM s\'effondre en février ?', 'Les scientifiques étudient encore le phénomène. Hypothèse principale : février existe.'],
+  ['C\'est quoi « À jamais les premiers » ?', 'Une devise de 1993. Depuis, Paris a gagné deux Ligues des champions. Mise à jour suggérée : « À jamais les premiers… et puis c\'est tout ».'],
+  ['Quand l\'OM a-t-il gagné sa dernière Coupe de France ?', 'Le 10 juin 1989. Au Parc des Princes. Chez nous. On leur avait prêté le stade ; la chance, ils ne l\'ont jamais retrouvée.'],
+];
 function setupSearch() {
   const FAKE = 'Marseille';
   const input = $('#q'), form = $('#sform'), sugg = $('#sugg'), fix = $('#sfix'), results = $('#results'), box = $('.s-box');
-  const SUGG = ['marseille', 'marseille pire club', 'marseille dernier titre 2010', 'marseille ligue des champions depuis 1993', 'marseille pourquoi'];
+  const SUGG = ['marseille', 'marseille pire club', 'marseille dernier titre 2010', 'marseille ligue des champions depuis 1993', 'marseille février pourquoi', 'marseille trophée 2012 compétition supprimée'];
   const ICO = '<svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></svg>';
   let typed = '', shown = 0, tries = 0, busy = false;
 
@@ -692,12 +1036,10 @@ function setupSearch() {
     results.innerHTML = '<div class="res-load"></div>';
     await gsap.fromTo('.res-load', { scaleX: 0 }, { scaleX: 1, duration: .8, ease: 'power2.inOut' });
 
-    const fixLine = real && real.toLowerCase() !== 'marseille' && real.toLowerCase() !== 'om'
-      ? `Vous avez tapé <s>${esc(real.slice(0, 40))}</s>. Nous avons corrigé : <b>Marseille</b>.`
-      : lucky && !real ? 'Vous avez de la chance : <b>Marseille</b>. Comme toujours.' : 'Bonne réponse. <b>Évidemment.</b>';
+    const meta = tries >= META.length ? ' · Respect pour la persévérance. L\'OM aussi persévère, depuis 2012.' : META[tries - 1] || '';
     results.innerHTML = `
-      <div class="res-meta">Environ 1 résultat (0,00 seconde) · Tentative n°${tries}</div>
-      <div class="res-fix">${fixLine}</div>
+      <div class="res-meta">Environ 1 résultat (0,00 seconde) · Tentative n°${tries}${meta}</div>
+      <div class="res-fix">${verdict(real, lucky)}</div>
       <article class="res-card">
         <div class="res-url">https://pire-club.fr › verdict › definitif</div>
         <h3 class="glitch" data-text="Olympique de Marseille">Olympique de Marseille</h3>
@@ -707,19 +1049,27 @@ function setupSearch() {
           <li><div class="rs-l">Ligues des champions depuis 1993</div>
             <div class="bar psg"><i style="--w:100%"></i><b>Paris · 2</b></div>
             <div class="bar om"><i style="--w:0%"></i><b>Marseille · 0</b></div></li>
-          <li><div class="rs-l">Titres de champion depuis 2010</div>
+          <li><div class="rs-l">Titres de champion depuis 2011</div>
             <div class="bar psg"><i style="--w:100%"></i><b>Paris · 12</b></div>
+            <div class="bar om"><i style="--w:0%"></i><b>Marseille · 0</b></div></li>
+          <li><div class="rs-l">Trophées depuis le 14.04.2012</div>
+            <div class="bar psg"><i style="--w:100%"></i><b>Paris · plus de 30</b></div>
             <div class="bar om"><i style="--w:0%"></i><b>Marseille · 0</b></div></li>
           <li><div class="rs-l">Étoiles gagnées cette décennie</div>
             <div class="bar psg"><i style="--w:100%"></i><b>Paris · ★★</b></div>
             <div class="bar om"><i style="--w:0%"></i><b>Marseille · —</b></div></li>
         </ul>
         <p class="res-note">Aucun autre résultat possible. Même si tu tapes Nîmes.</p>
-        <div class="res-related"><span>marseille encore</span><span>marseille toujours</span><span>paris ★★</span></div>
+        <div class="paa">
+          <h4>Autres questions posées</h4>
+          ${PAA.map(([q, a]) => `<details><summary>${q}</summary><p>${a}</p></details>`).join('')}
+        </div>
+        <div class="res-related"><span>marseille encore</span><span>marseille toujours</span><span>marseille 2012</span><span>paris ★★</span></div>
         <button class="res-retry" data-magnetic>Essayer un autre club →</button>
       </article>`;
 
     const card = $('.res-card', results);
+    magnetic($('.res-retry', card));
     gsap.timeline()
       .from('.res-meta, .res-fix', { y: 16, opacity: 0, stagger: .08, duration: .5 })
       .from(card, { y: 80, scale: .9, rotateX: -18, opacity: 0, duration: 1, ease: 'expo.out' }, '-=.2')
@@ -732,8 +1082,9 @@ function setupSearch() {
       .to('.rstars i:not(.half)', {
         y: 140, rotate: () => gsap.utils.random(-260, 260), opacity: 0, duration: 1.1, stagger: .12, ease: 'power2.in',
       }, '-=1')
-      .from('.res-related span, .res-retry', { y: 20, opacity: 0, stagger: .06, duration: .5 }, '-=.6');
+      .from('.paa details, .res-related span, .res-retry', { y: 20, opacity: 0, stagger: .05, duration: .5 }, '-=.6');
 
+    $$('details', card).forEach(d => d.addEventListener('toggle', () => { if (d.open) { gsap.from($('p', d), { y: -8, opacity: 0, duration: .4, ease: 'power2.out' }); ScrollTrigger.refresh(); } }));
     $('.res-retry', card).addEventListener('click', () => {
       typed = ''; shown = 0; input.value = '';
       gsap.to(results, { opacity: 0, y: 20, duration: .3, onComplete: () => { results.innerHTML = ''; gsap.set(results, { clearProps: 'all' }); ScrollTrigger.refresh(); } });
@@ -762,20 +1113,38 @@ function setupFooter() {
     onComplete: () => big.classList.add('revealed'),
     onReverseComplete: () => big.classList.remove('revealed'),
   });
+  gsap.from('.foot-om > *', { y: 24, opacity: 0, stagger: .1, duration: .8, ease: 'expo.out', scrollTrigger: { trigger: '.foot-om', start: 'top 92%' } });
   zone('foot', { trigger: '.foot', start: 'top 60%', end: 'bottom top' }, () => scene('t:PARIS', { opacity: .9 }));
 }
 
 /* =========================================================
    LOADER
    ========================================================= */
+const QUIPS = [
+  [0, 'Chargement des étoiles…'],
+  [20, 'Polissage de la deuxième étoile…'],
+  [42, 'Recherche du dernier trophée de l\'OM… introuvable'],
+  [64, 'Réservation des places pour la finale 2027…'],
+  [86, 'Rétrogradation de Marseille… déjà faite en 1994'],
+  [98, 'Ici c\'est Paris.'],
+];
 function runLoader() {
   const paths = $$('.tower path');
   paths.forEach(p => { const L = p.getTotalLength(); p.style.strokeDasharray = L; p.style.strokeDashoffset = L; });
   const word = split($('.loader-word'));
-  const count = { v: 0 }, cEl = $('#count');
+  const count = { v: 0 }, cEl = $('#count'), qEl = $('#quip');
+  let q = -1;
   const tl = gsap.timeline();
   tl.to(paths, { strokeDashoffset: 0, duration: 1.5, stagger: .07, ease: 'power2.inOut' }, 0)
-    .to(count, { v: 100, duration: 2.2, ease: 'power3.inOut', onUpdate: () => { cEl.textContent = Math.round(count.v); } }, 0)
+    .to(count, {
+      v: 100, duration: 2.2, ease: 'power3.inOut',
+      onUpdate: () => {
+        cEl.textContent = Math.round(count.v);
+        let i = 0;
+        QUIPS.forEach(([at], k) => { if (count.v >= at) i = k; });
+        if (i !== q) { q = i; qEl.textContent = QUIPS[i][1]; gsap.fromTo(qEl, { y: 8, opacity: 0 }, { y: 0, opacity: 1, duration: .25 }); }
+      },
+    }, 0)
     .from(word, { yPercent: 120, duration: .8, stagger: .03, ease: 'expo.out' }, 1.1)
     .from('.loader-meta', { opacity: 0, y: 10, duration: .6 }, 1.3)
     .to('.tower', { scale: 1.08, duration: .3, ease: 'power2.out', yoyo: true, repeat: 1 }, 2.1)
@@ -796,8 +1165,18 @@ setupMarquee();
 setupHistory();
 setupStats();
 setupStars();
+setMarseilleCtx({ gsap, ScrollTrigger, zone, scene, toast, egg, confetti, reduce, isTouch, CHICKEN, tumbleSVG });
+setupClassique();
+setupFrise();
+setupCompteur();
+setupExcuses();
+setupSimu();
+setupQuiz();
+setupGame();
+setupMuseum();
 setupSearch();
 setupFooter();
+initEggs({ P, scene, restore: restoreScene, lockScroll, isReady: () => ready, isAutoScroll: () => Date.now() < autoUntil, COLORS });
 
 await Promise.race([document.fonts.load('400 100px Anton'), sleep(2500)]);
 runLoader();
@@ -805,3 +1184,4 @@ runLoader();
 // little easter egg for the curious
 console.log('%cICI C\'EST PARIS ★★', 'font:700 28px Impact;color:#e8c25a;background:#004170;padding:10px 18px;border-left:12px solid #da291c');
 console.log('%cSite conçu, codé et animé par Claude.', 'color:#aaa');
+console.log('%cPsst. Tape palmaresOM() ici. Ou palmaresPSG(), si tu préfères les longues listes.', 'color:#8fd3ef;font:500 13px monospace');
