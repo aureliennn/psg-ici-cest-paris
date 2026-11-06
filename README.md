@@ -47,7 +47,9 @@ Site fan (non officiel) du Paris Saint-Germain, entièrement conçu, codé et an
 Sur mobile, les codes clavier se tapent dans le champ « code secret » du panneau des secrets. Bonus non comptés : messages spéciaux certains jours (février, 14 avril, 26, 30 et 31 mai).
 </details>
 
-Aucune étape de build : `index.html`, `style.css`, `main.js`, `eggs.js`, `marseille.js`. Les librairies viennent de CDN.
+Aucune étape de build : `index.html`, `style.css`, `main.js`, `eggs.js`, `marseille.js`.
+
+**Aussi dans ce repo :** [`the-weeknd/`](the-weeknd/), un second site fan sur la carrière de The Weeknd (discographie, vinyles, tournées, ventes, records, 15 secrets), construit avec le même moteur. Les librairies viennent de CDN.
 
 ```bash
 python -m http.server 5173

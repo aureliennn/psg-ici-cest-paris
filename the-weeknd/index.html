@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Weeknd — La carrière</title>
+<meta name="description" content="Site fan non officiel : la carrière de The Weeknd, des mixtapes de 2011 à la tournée After Hours til Dawn. Discographie, vinyles, tournées, ventes, records et 15 secrets.">
+<meta name="theme-color" content="#050506">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23050506'/%3E%3Cpath d='M18 30 L46 70 M46 30 L18 70' stroke='%23ff1f3d' stroke-width='9' stroke-linecap='round'/%3E%3Ccircle cx='70' cy='50' r='16' fill='none' stroke='%23ff1f3d' stroke-width='9'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=Inter:wght@400;500;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="loading">
+
+<div class="ambient" aria-hidden="true"></div>
+<canvas id="gl" aria-hidden="true"></canvas>
+<div class="grain" aria-hidden="true"></div>
+<div class="flash" aria-hidden="true"></div>
+<div class="progress" aria-hidden="true"></div>
+<div class="cursor" aria-hidden="true"><div class="cursor-dot"></div><div class="cursor-ring"></div></div>
+
+<!-- ============ LOADER ============ -->
+<div class="loader" aria-hidden="true">
+  <div class="loader-panel p1"></div>
+  <div class="loader-panel p2"></div>
+  <div class="loader-inner">
+    <svg class="xo" viewBox="0 0 120 60">
+      <path d="M8 8 L44 52"/>
+      <path d="M44 8 L8 52"/>
+      <circle cx="88" cy="30" r="22"/>
+    </svg>
+    <div class="loader-word">THE WEEKND</div>
+    <div class="loader-quip" id="quip">Gonflage des ballons…</div>
+    <div class="loader-meta">Abel Tesfaye · 2010 — 2026</div>
+    <div class="loader-count"><span id="count">0</span></div>
+  </div>
+</div>
+
+<!-- ============ NAV ============ -->
+<header class="nav">
+  <a class="brand" href="#top" data-magnetic aria-label="XO, retour en haut">X<span>O</span></a>
+  <nav class="nav-links">
+    <a href="#carriere"><span data-t="Carrière">Carrière</span></a>
+    <a href="#discographie"><span data-t="Disques">Disques</span></a>
+    <a href="#vinyles"><span data-t="Vinyles">Vinyles</span></a>
+    <a href="#tournees"><span data-t="Tournées">Tournées</span></a>
+    <a href="#quiz" class="hide-md"><span data-t="Quiz">Quiz</span></a>
+    <a href="#records" class="nav-cta" data-magnetic>Les records</a>
+  </nav>
+</header>
+
+<main>
+
+<!-- ============ HERO ============ -->
+<section id="top" class="hero">
+  <h1 class="sr-only">The Weeknd — la carrière</h1>
+  <div class="hero-top">
+    <span>Abel Tesfaye</span>
+    <span class="hide-sm">Né le 16.02.1990 · Toronto</span>
+    <span class="red-t">Site fan non officiel</span>
+  </div>
+  <div class="hero-bottom">
+    <p class="hero-tag split">Trois mixtapes gratuites. Puis le monde.</p>
+    <div class="scroll-hint"><i></i>Scroll</div>
+  </div>
+</section>
+
+<!-- ============ MARQUEE ============ -->
+<section class="mq" aria-hidden="true">
+  <div class="mq-row r1"><div class="mq-inner">
+    <span>After Hours <em>✕</em></span><span class="outline">Starboy <em>○</em></span><span>Dawn FM <em>✕</em></span><span class="outline">Kiss Land <em>○</em></span>
+    <span>After Hours <em>✕</em></span><span class="outline">Starboy <em>○</em></span><span>Dawn FM <em>✕</em></span><span class="outline">Kiss Land <em>○</em></span>
+  </div></div>
+  <div class="mq-row r2"><div class="mq-inner">
+    <span>Hurry Up Tomorrow <em>✕</em></span><span class="outline">Beauty Behind the Madness <em>○</em></span><span>House of Balloons <em>✕</em></span><span class="outline">Trilogy <em>○</em></span>
+    <span>Hurry Up Tomorrow <em>✕</em></span><span class="outline">Beauty Behind the Madness <em>○</em></span><span>House of Balloons <em>✕</em></span><span class="outline">Trilogy <em>○</em></span>
+  </div></div>
+</section>
+
+<!-- ============ CARRIÈRE ============ -->
+<section id="carriere" class="history">
+  <div class="h-track">
+    <article class="h-panel h-intro">
+      <div class="h-idx fade">01 — La carrière</div>
+      <h2>La carrière</h2>
+      <p class="fade">2010 → 2026. De Scarborough à Kuala Lumpur.</p>
+      <div class="h-arrow fade">→</div>
+    </article>
+    <article class="h-panel" data-year="2010" data-tint="#d9d4cf">
+      <div class="h-idx">01 / 12</div>
+      <div class="h-year fade">Décembre 2010 · Toronto</div>
+      <h3>Anonyme</h3>
+      <p class="fade">Quelques titres postés sur YouTube, sans visage ni nom. Il retire un « e » à « Weekend » : le nom était déjà pris par un groupe canadien.</p>
+    </article>
+    <article class="h-panel" data-year="2011" data-tint="#d9d4cf">
+      <div class="h-idx">02 / 12</div>
+      <div class="h-year fade">2011</div>
+      <h3>La trilogie gratuite</h3>
+      <p class="fade">House of Balloons en mars, Thursday en août, Echoes of Silence en décembre. Trois mixtapes en neuf mois, offertes.</p>
+    </article>
+    <article class="h-panel" data-year="2013" data-tint="#ff3d8b">
+      <div class="h-idx">03 / 12</div>
+      <div class="h-year fade">10 septembre 2013</div>
+      <h3>Kiss Land</h3>
+      <p class="fade">Premier album studio, chez XO et Republic. N°2 au Billboard 200.</p>
+    </article>
+    <article class="h-panel" data-year="2015" data-tint="#ff8a1f">
+      <div class="h-idx">04 / 12</div>
+      <div class="h-year fade">2015</div>
+      <h3>Numéro un</h3>
+      <p class="fade">Beauty Behind the Madness : premier n°1. « Can't Feel My Face » et « The Hills » au sommet du Hot 100, « Earned It » nommé aux Oscars.</p>
+    </article>
+    <article class="h-panel" data-year="2016" data-tint="#4d7cff">
+      <div class="h-idx">05 / 12</div>
+      <div class="h-year fade">25 novembre 2016</div>
+      <h3>Starboy</h3>
+      <p class="fade">Coupe courte, Daft Punk en invités. N°1 album, n°1 single, et un Grammy de plus.</p>
+    </article>
+    <article class="h-panel" data-year="2020" data-tint="#ff1f3d">
+      <div class="h-idx">06 / 12</div>
+      <div class="h-year fade">20 mars 2020</div>
+      <h3>After Hours</h3>
+      <p class="fade">Costume rouge, lunettes, nez bandé. « Blinding Lights » devient le plus grand tube de l'histoire du Hot 100.</p>
+    </article>
+    <article class="h-panel" data-year="2021" data-tint="#ff1f3d">
+      <div class="h-idx">07 / 12</div>
+      <div class="h-year fade">7 février 2021 · Tampa</div>
+      <h3>Super Bowl</h3>
+      <p class="fade">Le show de la mi-temps du Super Bowl LV. Une galerie des glaces, des danseurs bandés, et 7 M$ de sa propre poche.</p>
+    </article>
+    <article class="h-panel" data-year="2022" data-tint="#ffb38a">
+      <div class="h-idx">08 / 12</div>
+      <div class="h-year fade">2022</div>
+      <h3>Dawn FM</h3>
+      <p class="fade">Une radio au bout de la nuit. En juillet, la tournée After Hours til Dawn démarre dans les stades.</p>
+    </article>
+    <article class="h-panel" data-year="2023" data-tint="#ff1f3d">
+      <div class="h-idx">09 / 12</div>
+      <div class="h-year fade">2023</div>
+      <h3>Record du monde</h3>
+      <p class="fade">Premier artiste à 100 millions d'auditeurs mensuels sur Spotify. Guinness le déclare artiste le plus populaire de la planète.</p>
+    </article>
+    <article class="h-panel" data-year="2025" data-tint="#efe8dc">
+      <div class="h-idx">10 / 12</div>
+      <div class="h-year fade">31 janvier 2025</div>
+      <h3>Hurry Up Tomorrow</h3>
+      <p class="fade">La fin de la trilogie : 490 500 unités en une semaine, son record. Un film en mai. « Blinding Lights » passe les 5 milliards en août.</p>
+    </article>
+    <article class="h-panel" data-year="2026" data-tint="#ff1f3d">
+      <div class="h-idx">11 / 12</div>
+      <div class="h-year fade">Novembre 2026 · Kuala Lumpur</div>
+      <h3>Rideau</h3>
+      <p class="fade">Fin de la tournée After Hours til Dawn : plus de 1,3 milliard de dollars, 9 millions de billets. Record absolu pour un artiste masculin.</p>
+    </article>
+    <article class="h-panel h-outro" data-year="XO" data-tint="#ff1f3d">
+      <div class="h-idx">12 / 12</div>
+      <div class="h-year fade">Et maintenant ?</div>
+      <h3>À suivre…</h3>
+      <p class="fade">Aucun nouvel album annoncé. Le week-end, lui, n'est jamais vraiment fini.</p>
+    </article>
+  </div>
+  <div class="h-bar"><span></span></div>
+</section>
+
+<!-- ============ CHIFFRES ============ -->
+<section id="chiffres" class="sec stats">
+  <div class="sec-head"><span class="sec-idx">02</span><h2 class="title split">En chiffres</h2></div>
+  <div class="stat-grid">
+    <div class="stat spot"><div class="stat-n"><span data-count="1.3" data-dec="1">0</span><small>Md$</small></div><div class="stat-l">Recettes de la tournée After Hours til Dawn · record masculin</div></div>
+    <div class="stat spot"><div class="stat-n"><span data-count="9">0</span><small>M+</small></div><div class="stat-l">Billets vendus sur cette tournée · 176 concerts</div></div>
+    <div class="stat spot"><div class="stat-n"><span data-count="5">0</span><small>Md</small></div><div class="stat-l">Streams Spotify de « Blinding Lights » · une première</div></div>
+    <div class="stat spot"><div class="stat-n"><span data-count="7">0</span></div><div class="stat-l">Numéros 1 au Billboard Hot 100</div></div>
+    <div class="stat spot"><div class="stat-n"><span data-count="5">0</span></div><div class="stat-l">Albums n°1 au Billboard 200</div></div>
+    <div class="stat spot"><div class="stat-n"><span data-count="4">0</span></div><div class="stat-l">Grammy Awards · et beaucoup d'oublis</div></div>
+    <div class="stat spot"><div class="stat-n"><span data-count="111.4" data-dec="1">0</span><small>M</small></div><div class="stat-l">Auditeurs mensuels sur Spotify · record Guinness 2023</div></div>
+    <div class="stat spot"><div class="stat-n"><span data-count="36.2" data-dec="1">0</span><small>M</small></div><div class="stat-l">Unités d'albums aux États-Unis · Luminate, août 2025</div></div>
+  </div>
+</section>
+
+<!-- ============ DISCOGRAPHIE ============ -->
+<section id="discographie" class="sec disco">
+  <div class="sec-head"><span class="sec-idx">03</span><h2 class="title split">Les disques</h2></div>
+  <div class="tabs" role="tablist" aria-label="Filtrer la discographie">
+    <span class="tab-pill"></span>
+    <button class="tab active" role="tab" data-filter="all">Tout · 11</button>
+    <button class="tab" role="tab" data-filter="album">Albums studio</button>
+    <button class="tab" role="tab" data-filter="other">Mixtapes, EP &amp; compil</button>
+  </div>
+  <p class="disco-hint">Clique sur une pochette pour la retourner.</p>
+  <div class="disco-grid" id="disco-grid"></div>
+  <p class="disco-note">Pochettes : créations originales du site, inspirées des couleurs de chaque époque. Les vraies pochettes appartiennent à leurs auteurs.</p>
+</section>
+
+<!-- ============ VINYLES ============ -->
+<section id="vinyles" class="sec vinyl">
+  <div class="sec-head"><span class="sec-idx">04</span><h2 class="title split">Les vinyles</h2></div>
+  <div class="deck">
+    <div class="crate-wrap">
+      <div class="crate-k">Le bac · choisis un disque</div>
+      <div class="crate" id="crate" role="listbox" aria-label="Bac à vinyles" data-lenis-prevent></div>
+    </div>
+    <div class="tt-wrap">
+      <div class="tt" id="tt">
+        <div class="tt-platter"><div class="tt-mat"></div></div>
+        <div class="tt-rec" id="tt-rec">
+          <div class="tt-grooves"></div>
+          <div class="tt-label" id="tt-label"><span id="tt-label-t">XO</span></div>
+          <div class="tt-hole"></div>
+        </div>
+        <svg class="tt-arm" id="tt-arm" viewBox="0 0 120 260" aria-hidden="true">
+          <circle cx="92" cy="28" r="20" class="arm-base"/>
+          <circle cx="92" cy="28" r="7" class="arm-pivot"/>
+          <path d="M92 28 L92 170 L64 232" class="arm-rod"/>
+          <rect x="52" y="226" width="26" height="16" rx="3" transform="rotate(-24 65 234)" class="arm-head"/>
+        </svg>
+        <div class="tt-led" id="tt-led"></div>
+      </div>
+      <div class="tt-ctrl">
+        <button class="tt-btn" id="tt-play" type="button">▶ Lecture</button>
+        <div class="tt-speed" role="group" aria-label="Vitesse">
+          <button class="tt-btn on" data-rpm="33" type="button">33</button>
+          <button class="tt-btn" data-rpm="45" type="button">45</button>
+        </div>
+        <button class="tt-btn" id="tt-sound" type="button" aria-pressed="false">Son : off</button>
+      </div>
+    </div>
+    <aside class="tt-info" id="tt-info">
+      <div class="ti-k">Sur la platine</div>
+      <h3 class="ti-t">Choisis un disque dans le bac</h3>
+      <p class="ti-p">Chaque vinyle a sa fiche. Le son est une ambiance générée par le site : aucune musique de The Weeknd n'est jouée ici.</p>
+    </aside>
+  </div>
+</section>
+
+<!-- ============ TOURNÉES ============ -->
+<section id="tournees" class="sec tours">
+  <div class="sec-head"><span class="sec-idx">05</span><h2 class="title split">Les tournées</h2></div>
+  <div class="tour-hero">
+    <div class="th-big"><span id="th-gross">0</span><small>Md$</small></div>
+    <div class="th-side">
+      <div class="th-k">After Hours til Dawn Tour · juillet 2022 → novembre 2026</div>
+      <p>La tournée la plus lucrative de l'histoire pour un artiste masculin, devant les 939 M$ de la tournée d'adieu d'Elton John. Troisième tous artistes confondus.</p>
+      <ul class="th-stats">
+        <li><b data-count="9">0</b><span>millions de billets et plus</span></li>
+        <li><b data-count="176">0</b><span>concerts</span></li>
+        <li><b data-count="67">0</b><span>villes</span></li>
+        <li><b data-count="30">0</b><span>pays</span></li>
+        <li><b data-count="5">0</b><span>continents</span></li>
+      </ul>
+      <p class="th-note">8,5 M$ reversés au XO Humanitarian Fund et à Global Citizen.</p>
+    </div>
+  </div>
+  <figure class="tour-chart">
+    <figcaption><div class="m-head">Recettes connues par tournée</div><span>En millions de dollars · Pollstar, Live Nation</span></figcaption>
+    <div class="tc-rows" id="tc-rows"></div>
+    <p class="tc-foot">Les recettes de 2013, 2014 et 2018 n'ont pas été publiées.</p>
+  </figure>
+  <ol class="tour-list" id="tour-list"></ol>
+</section>
+
+<!-- ============ RECORDS & VENTES ============ -->
+<section id="records" class="sec records">
+  <div class="sec-head"><span class="sec-idx">06</span><h2 class="title split">Ventes &amp; records</h2></div>
+  <div class="rec-grid" id="rec-grid"></div>
+
+  <figure class="fw-chart">
+    <figcaption><div class="m-head">Première semaine aux États-Unis</div><span>Unités équivalent-album · Billboard / Luminate · classement Billboard 200</span></figcaption>
+    <div class="fw-plot" id="fw-plot"></div>
+  </figure>
+
+  <div class="grammys">
+    <div class="m-head">Les Grammys, une histoire compliquée</div>
+    <ol class="gr-line">
+      <li><b>2016</b><span>Deux trophées : meilleur album urbain contemporain (Beauty Behind the Madness) et meilleure performance R&amp;B (« Earned It »).</span></li>
+      <li><b>2018</b><span>Starboy, meilleur album urbain contemporain.</span></li>
+      <li class="bad"><b>2021</b><span>After Hours et « Blinding Lights » : zéro nomination. Il annonce boycotter la cérémonie.</span></li>
+      <li><b>2022</b><span>Quatrième Grammy, pour « Hurricane », avec Kanye West et Lil Baby.</span></li>
+      <li><b>2025</b><span>Retour surprise sur la scène des Grammys.</span></li>
+      <li class="bad"><b>2026</b><span>Hurry Up Tomorrow : encore zéro nomination.</span></li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============ SUPER BOWL ============ -->
+<section id="superbowl" class="sec bowl">
+  <div class="sec-head"><span class="sec-idx">07</span><h2 class="title split">La galerie des glaces</h2></div>
+  <div class="bowl-wrap">
+    <div class="bowl-txt">
+      <div class="bowl-k">Super Bowl LV · 7 février 2021 · Raymond James Stadium, Tampa</div>
+      <p>Pour la mi-temps, il transforme les tribunes en ville de néons et fait tourner les caméras dans une galerie des glaces. Il ajoute 7 millions de dollars de sa poche pour que le show soit à la hauteur.</p>
+      <p class="bowl-hint">Bouge ta souris (ou ton doigt) dans le labyrinthe. Il y a peut-être une sortie.</p>
+    </div>
+    <div class="mirror" id="mirror" data-cursor="Miroir"><canvas id="mirror-cv"></canvas><div class="mirror-ui" id="mirror-ui">0 / 7 miroirs</div></div>
+  </div>
+</section>
+
+<!-- ============ QUIZ ============ -->
+<section id="quiz" class="sec quiz">
+  <div class="sec-head"><span class="sec-idx">08</span><h2 class="title split">Le quiz XO</h2></div>
+  <div class="quiz-card" id="quiz-card">
+    <div class="qz-top"><span class="qz-k">8 questions · réponses vérifiées</span><div class="qz-dots" id="qz-dots" aria-hidden="true"></div></div>
+    <div class="qz-body" id="qz-body"></div>
+  </div>
+</section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="foot">
+  <div class="foot-big split">XO</div>
+  <div class="foot-om">
+    <p><span class="eggs-total">15</span> secrets sont cachés sur ce site. Ils sortent la nuit.</p>
+    <div class="foot-links">
+      <button id="eggs-open" class="foot-link" type="button">Secrets trouvés : <b class="eggs-count">0/15</b></button>
+      <a class="foot-link" href="../">← Le site PSG</a>
+    </div>
+    <p class="foot-legal">Site fan non officiel, sans lien avec The Weeknd, XO ou Republic Records. Les titres et pochettes appartiennent à leurs ayants droit. Données vérifiées en novembre 2026 (Billboard, Luminate, RIAA, Guinness, Spotify, Pollstar).</p>
+  </div>
+  <div class="foot-row">
+    <span>The Weeknd · 2010 → 2026</span>
+    <span>Conçu, codé &amp; animé par Claude</span>
+    <a href="#top" class="totop" data-magnetic aria-label="Retour en haut">↑</a>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js" defer></script>
+<script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js" defer></script>
+<script type="module" src="main.js"></script>
+</body>
+</html>
