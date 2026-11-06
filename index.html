@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Paris Saint-Germain — Ici c'est Paris</title>
+<meta name="description" content="Le Paris Saint-Germain en animations : l'histoire, les deux étoiles, et la quête du back-to-back-to-back.">
+<meta name="theme-color" content="#000c1a">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23004170'/%3E%3Crect x='42' width='16' height='100' fill='%23da291c'/%3E%3Cpolygon points='50,14 58.5,37 83,38 64,53 70.5,77 50,63.5 29.5,77 36,53 17,38 41.5,37' fill='%23e8c25a'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="loading">
+
+<!-- gold gradient shared by every star -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fff1b8"/>
+      <stop offset=".45" stop-color="#e8c25a"/>
+      <stop offset="1" stop-color="#9c7420"/>
+    </linearGradient>
+  </defs>
+</svg>
+
+<div class="ambient" aria-hidden="true"></div>
+<canvas id="gl" aria-hidden="true"></canvas>
+<div class="grain" aria-hidden="true"></div>
+<div class="flash" aria-hidden="true"></div>
+<div class="progress" aria-hidden="true"></div>
+<div class="cursor" aria-hidden="true"><div class="cursor-dot"></div><div class="cursor-ring"></div></div>
+
+<!-- ============ LOADER ============ -->
+<div class="loader" aria-hidden="true">
+  <div class="loader-panel p1"></div>
+  <div class="loader-panel p2"></div>
+  <div class="loader-panel p3"></div>
+  <div class="loader-inner">
+    <svg class="tower" viewBox="0 0 100 160">
+      <path d="M50 0 L50 9"/>
+      <path d="M47 9 L53 9"/>
+      <path d="M47 9 L44 40 Q36 100 8 158"/>
+      <path d="M53 9 L56 40 Q64 100 92 158"/>
+      <path d="M43 40 L57 40"/>
+      <path d="M36 76 L64 76"/>
+      <path d="M20 118 L80 118"/>
+      <path class="accent" d="M27 158 Q50 112 73 158"/>
+      <path d="M45 42 L55 74 M55 42 L45 74"/>
+      <path d="M38 78 L62 116 M62 78 L38 116"/>
+    </svg>
+    <div class="loader-word">ICI C'EST PARIS</div>
+    <div class="loader-meta">Paris Saint-Germain · 1970 — 2026</div>
+    <div class="loader-count"><span id="count">0</span></div>
+  </div>
+</div>
+
+<!-- ============ NAV ============ -->
+<header class="nav">
+  <a class="brand" href="#top" data-magnetic>PSG<span>★★</span></a>
+  <nav class="nav-links">
+    <a href="#histoire"><span data-t="Histoire">Histoire</span></a>
+    <a href="#chiffres"><span data-t="Chiffres">Chiffres</span></a>
+    <a href="#etoiles" data-tab="two"><span data-t="Étoiles">Étoiles</span></a>
+    <a href="#recherche"><span data-t="Recherche">Recherche</span></a>
+    <a href="#etoiles" data-tab="three" class="nav-cta" data-magnetic>Une 3ème… ?</a>
+  </nav>
+</header>
+
+<main>
+
+<!-- ============ HERO ============ -->
+<section id="top" class="hero">
+  <h1 class="sr-only">Paris Saint-Germain</h1>
+  <div class="hero-top">
+    <span>Paris Saint-Germain</span>
+    <span class="hide-sm">Fondé le 12.08.1970</span>
+    <span class="gold-t">★★ Champion d'Europe</span>
+  </div>
+  <div class="hero-bottom">
+    <p class="hero-tag split">Deux fois champion d'Europe.</p>
+    <div class="scroll-hint"><i></i>Scroll</div>
+  </div>
+</section>
+
+<!-- ============ MARQUEE ============ -->
+<section class="mq" aria-hidden="true">
+  <div class="mq-row r1"><div class="mq-inner">
+    <span>Ici c'est Paris <em>✦</em></span><span class="outline">Paris est magique <em>✦</em></span><span>Ici c'est Paris <em>✦</em></span><span class="outline">Paris est magique <em>✦</em></span>
+    <span>Ici c'est Paris <em>✦</em></span><span class="outline">Paris est magique <em>✦</em></span><span>Ici c'est Paris <em>✦</em></span><span class="outline">Paris est magique <em>✦</em></span>
+  </div></div>
+  <div class="mq-row r2"><div class="mq-inner">
+    <span>Champions d'Europe <em>★★</em></span><span class="outline">Back to back <em>✦</em></span><span>Champions d'Europe <em>★★</em></span><span class="outline">Back to back <em>✦</em></span>
+    <span>Champions d'Europe <em>★★</em></span><span class="outline">Back to back <em>✦</em></span><span>Champions d'Europe <em>★★</em></span><span class="outline">Back to back <em>✦</em></span>
+  </div></div>
+</section>
+
+<!-- ============ HISTOIRE ============ -->
+<section id="histoire" class="history">
+  <div class="h-track">
+    <article class="h-panel h-intro">
+      <div class="h-idx fade">01 — L'histoire</div>
+      <h2>L'histoire</h2>
+      <p class="fade">1970 → 2026. Scrolle, Paris s'écrit.</p>
+      <div class="h-arrow fade">→</div>
+    </article>
+    <article class="h-panel" data-year="1970">
+      <div class="h-idx">01 / 08</div>
+      <div class="h-year fade">12 août 1970</div>
+      <h3>Naissance</h3>
+      <p class="fade">Paris a enfin son grand club.</p>
+    </article>
+    <article class="h-panel" data-year="1982">
+      <div class="h-idx">02 / 08</div>
+      <div class="h-year fade">1982</div>
+      <h3>Premier trophée</h3>
+      <p class="fade">La Coupe de France. Le Parc s'embrase.</p>
+    </article>
+    <article class="h-panel" data-year="1986">
+      <div class="h-idx">03 / 08</div>
+      <div class="h-year fade">1986</div>
+      <h3>Champion</h3>
+      <p class="fade">Premier titre de champion de France.</p>
+    </article>
+    <article class="h-panel" data-year="1996">
+      <div class="h-idx">04 / 08</div>
+      <div class="h-year fade">1996</div>
+      <h3>L'Europe</h3>
+      <p class="fade">Coupe des Coupes. Premier trophée européen.</p>
+    </article>
+    <article class="h-panel" data-year="2011">
+      <div class="h-idx">05 / 08</div>
+      <div class="h-year fade">2011</div>
+      <h3>Nouvelle ère</h3>
+      <p class="fade">Paris voit grand. Très grand.</p>
+    </article>
+    <article class="h-panel" data-year="2020">
+      <div class="h-idx">06 / 08</div>
+      <div class="h-year fade">2020</div>
+      <h3>Lisbonne</h3>
+      <p class="fade">Première finale de Ligue des champions.</p>
+    </article>
+    <article class="h-panel gold" data-year="2025">
+      <div class="h-idx">07 / 08</div>
+      <div class="h-year fade">31 mai 2025</div>
+      <h3>Munich</h3>
+      <p class="fade">5–0. La première étoile.</p>
+    </article>
+    <article class="h-panel gold" data-year="2026">
+      <div class="h-idx">08 / 08</div>
+      <div class="h-year fade">30 mai 2026</div>
+      <h3>Budapest</h3>
+      <p class="fade">Back-to-back. La deuxième.</p>
+    </article>
+  </div>
+  <div class="h-bar"><span></span></div>
+</section>
+
+<!-- ============ CHIFFRES ============ -->
+<section id="chiffres" class="sec stats">
+  <div class="sec-head"><span class="sec-idx">02</span><h2 class="title split">En chiffres</h2></div>
+  <div class="stat-grid">
+    <div class="stat spot"><div class="stat-n"><span data-count="14">0</span></div><div class="stat-l">Titres de champion de France · record</div></div>
+    <div class="stat spot"><div class="stat-n"><span data-count="2">0</span><small>★</small></div><div class="stat-l">Ligues des champions</div></div>
+    <div class="stat spot"><div class="stat-n"><span data-count="5">0</span>–0</div><div class="stat-l">Finale 2025 · plus large score de l'histoire</div></div>
+    <div class="stat spot"><div class="stat-n"><span data-count="1970" data-from="1900">1900</span></div><div class="stat-l">Année de naissance</div></div>
+  </div>
+</section>
+
+<!-- ============ ETOILES ============ -->
+<section id="etoiles" class="sec stars">
+  <div class="sec-head"><span class="sec-idx">03</span><h2 class="title split">Les étoiles</h2></div>
+  <div class="tabs" role="tablist">
+    <span class="tab-pill"></span>
+    <button class="tab active" role="tab" data-tab="two">★★ Les deux étoiles</button>
+    <button class="tab" role="tab" data-tab="three">☆ Une 3ème… ?</button>
+  </div>
+
+  <div class="tab-panels">
+    <div class="tab-panel active" id="tab-two" role="tabpanel">
+      <div class="star-cards">
+        <article class="star-card tilt">
+          <div class="tilt-inner">
+            <div class="rays"></div>
+            <div class="card-top reveal"><span>Étoile n°1</span><span>2024-25</span></div>
+            <svg class="star-svg" viewBox="0 0 100 100"><polygon class="star-shape" points="50,2 61.76,33.82 95.65,35.17 69.02,56.18 78.21,88.83 50,70 21.79,88.83 30.98,56.18 4.35,35.17 38.24,33.82"/></svg>
+            <div class="card-date reveal">31.05.2025</div>
+            <div class="card-place reveal">Munich · Allianz Arena</div>
+            <div class="card-score reveal"><span>PSG</span><b>5–0</b><span>Inter</span></div>
+            <p class="card-note reveal">La plus large victoire de l'histoire en finale.</p>
+          </div>
+        </article>
+        <article class="star-card tilt">
+          <div class="tilt-inner">
+            <div class="rays"></div>
+            <div class="card-top reveal"><span>Étoile n°2</span><span>2025-26</span></div>
+            <svg class="star-svg" viewBox="0 0 100 100"><polygon class="star-shape" points="50,2 61.76,33.82 95.65,35.17 69.02,56.18 78.21,88.83 50,70 21.79,88.83 30.98,56.18 4.35,35.17 38.24,33.82"/></svg>
+            <div class="card-date reveal">30.05.2026</div>
+            <div class="card-place reveal">Budapest · Puskás Aréna</div>
+            <div class="card-score reveal"><span>PSG</span><b>1–1</b><span>Arsenal</span></div>
+            <p class="card-note reveal">4–3 aux tirs au but. Back-to-back.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <div class="tab-panel" id="tab-three" role="tabpanel">
+      <div class="three-stage">
+        <div class="three-kicker">Saison 2026-27 · La mission</div>
+        <h3 class="b3"><span id="b3-1">BACK</span><span id="b3-2">TO BACK</span><span id="b3-3">TO BACK ?</span></h3>
+        <div class="three-stars">
+          <svg class="mini-star" viewBox="0 0 100 100"><polygon points="50,2 61.76,33.82 95.65,35.17 69.02,56.18 78.21,88.83 50,70 21.79,88.83 30.98,56.18 4.35,35.17 38.24,33.82"/></svg>
+          <svg class="mini-star" viewBox="0 0 100 100"><polygon points="50,2 61.76,33.82 95.65,35.17 69.02,56.18 78.21,88.83 50,70 21.79,88.83 30.98,56.18 4.35,35.17 38.24,33.82"/></svg>
+          <svg class="mini-star ghost" id="star3" viewBox="0 0 100 100"><polygon points="50,2 61.76,33.82 95.65,35.17 69.02,56.18 78.21,88.83 50,70 21.79,88.83 30.98,56.18 4.35,35.17 38.24,33.82"/></svg>
+        </div>
+        <button id="hold" class="hold">
+          <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="46" class="hold-track"/><circle cx="50" cy="50" r="46" id="hold-ring" class="hold-ring"/></svg>
+          <span id="hold-label">Maintiens</span>
+        </button>
+        <p id="three-msg" class="three-msg">Maintiens le bouton pour invoquer la 3ème étoile.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ RECHERCHE ============ -->
+<section id="recherche" class="sec search">
+  <div class="sec-head center"><span class="sec-idx">04</span><h2 class="title split">La question</h2></div>
+  <div class="search-wrap">
+    <div class="s-logo" aria-label="Cherche Paris"><span>C</span><span>h</span><span>e</span><span>r</span><span>c</span><span>h</span><span>e</span><span class="dot">·</span><span>P</span><span>a</span><span>r</span><span>i</span><span>s</span></div>
+    <p class="s-question">Une seule recherche autorisée : <b>quel est le pire club ?</b></p>
+    <form id="sform" class="s-form" autocomplete="off">
+      <div class="s-box">
+        <svg class="s-ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></svg>
+        <input id="q" type="text" placeholder="Tape n'importe quel club…" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" aria-label="Quel est le pire club ?">
+        <span class="s-fix" id="sfix">autocorrigé ✔</span>
+      </div>
+      <ul class="s-sugg" id="sugg" role="listbox"></ul>
+      <div class="s-btns">
+        <button type="submit" class="s-btn" data-magnetic>Rechercher</button>
+        <button type="button" class="s-btn" id="lucky" data-magnetic>J'ai de la chance</button>
+      </div>
+    </form>
+    <div id="results" class="results" aria-live="polite"></div>
+  </div>
+</section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="foot">
+  <div class="foot-big split">Ici c'est Paris</div>
+  <div class="foot-row">
+    <span>Paris Saint-Germain · depuis 1970</span>
+    <span>Site fan non officiel — conçu, codé &amp; animé par Claude</span>
+    <a href="#top" class="totop" data-magnetic aria-label="Retour en haut">↑</a>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js" defer></script>
+<script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js" defer></script>
+<script type="module" src="main.js"></script>
+</body>
+</html>
