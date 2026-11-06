@@ -14,7 +14,7 @@ const gsap = () => window.gsap;
 const fire = o => window.confetti && window.confetti({ disableForReducedMotion: true, ...o });
 
 /* context injected by main.js: { P, scene, restore, lockScroll, isReady, COLORS } */
-let ctx = { P: { morph() {}, pulse() {} }, scene() {}, restore() {}, lockScroll() {}, isReady: () => true, COLORS: ['#e8c25a', '#ffffff', '#da291c', '#1f6fd1'] };
+let ctx = { P: { morph() {}, pulse() {} }, scene() {}, restore() {}, lockScroll() {}, isReady: () => true, isAutoScroll: () => false, COLORS: ['#e8c25a', '#ffffff', '#da291c', '#1f6fd1'] };
 
 export const EGG_ICON = '<svg viewBox="0 0 30 38" aria-hidden="true"><path d="M15 1C24 1 29 15 29 23C29 32 23 37 15 37C7 37 1 32 1 23C1 15 6 1 15 1Z" fill="url(#egg-gold)"/><path d="M9 12 Q12 7 15 6" stroke="#fff8dc" stroke-width="2" fill="none" stroke-linecap="round" opacity=".8"/></svg>';
 
@@ -32,6 +32,15 @@ export const EGGS = [
   { id: 'console', name: 'Le développeur', hint: 'Ouvre la console (F12). Quelqu\'un t\'y a laissé une commande.', desc: 'palmaresOM() : tableau vide. Comme prévu.' },
   { id: 'reve', name: 'Le rêve', hint: 'Simule assez de saisons de l\'OM : ils finiront par rêver.', desc: 'Champions… puis le réveil a sonné.' },
   { id: 'poussiere', name: 'Coup de chiffon', hint: 'Au musée de l\'OM, la coupe de 1993 prend la poussière.', desc: 'Elle brille comme en 1993. Profites-en.' },
+  { id: 'fevrier', name: 'Février', hint: 'Tape au clavier le mois préféré de l\'OM. Il est court, et il fait mal.', desc: 'Tout s\'est effondré. Comme chaque année.' },
+  { id: 'allezlom', name: 'Allez l\'OM', hint: 'Encourage-les au clavier : « allez l\'om ». Prépare-toi à être déçu.', desc: 'Trombone triste et site en noir et blanc.' },
+  { id: 'feu', name: 'Feu d\'artifice', hint: 'Tape au clavier la devise du club. Celle du marquee.', desc: 'Paris s\'illumine. Comme d\'habitude.' },
+  { id: 'rage', name: 'Rage quit', hint: 'Secoue la souris (ou le téléphone) comme un Marseillais après un Classique.', desc: 'Calme-toi. T\'es pas au Vélodrome.' },
+  { id: 'etoile-om', name: 'L\'étoile qui lâche', hint: 'Dans le Classique, l\'étoile de Marseille ne tient plus très bien. Clique dessus.', desc: 'Elle datait de 1993. Elle a lâché.' },
+  { id: 'fuite', name: 'La fuite', hint: 'Scrolle très, très vite. Comme une sortie de Vélodrome à la 80e.', desc: 'Même pas eu le temps de voir le score.' },
+  { id: 'zero', name: 'Le zéro pointé', hint: 'Termine le quiz avec 0 bonne réponse. Exprès.', desc: '0/8. Comme leur nombre de trophées depuis 2012.' },
+  { id: 'porte-parole', name: 'Porte-parole', hint: 'Génère 15 excuses officielles d\'affilée.', desc: 'Prêt pour la conférence de presse d\'après-match.' },
+  { id: 'poulailler', name: 'Le poulailler d\'or', hint: 'Marque 20 points en œufs dorés au jeu du poulet.', desc: 'Dix fois plus que leurs trophées majeurs depuis 1993.' },
 ];
 
 const KEY = 'psg-secrets-v1';
@@ -91,7 +100,7 @@ function buildTracker() {
   panel.setAttribute('aria-label', 'Chasse aux secrets');
   panel.innerHTML = `
     <div class="ep-head">
-      <div><div class="ep-k">Chasse aux œufs</div><b>Les 13 secrets</b></div>
+      <div><div class="ep-k">Chasse aux œufs</div><b>Les ${EGGS.length} secrets</b></div>
       <span class="ep-count eggs-count">0/${EGGS.length}</span>
       <button class="ep-x" type="button" aria-label="Fermer">×</button>
     </div>
@@ -133,6 +142,7 @@ function renderTracker(bump) {
   if (!pill) return;
   const n = found.size, N = EGGS.length;
   $$('.eggs-count').forEach(e => { e.textContent = `${n}/${N}`; });
+  $$('.eggs-total').forEach(e => { e.textContent = N; });
   $('b', pill).textContent = `${n}/${N}`;
   pill.classList.toggle('show', n > 0);
   pill.classList.toggle('done', n === N);
@@ -147,12 +157,13 @@ function renderTracker(bump) {
    TRIGGERS
    ========================================================= */
 const KONAMI = ['arrowup', 'arrowup', 'arrowdown', 'arrowdown', 'arrowleft', 'arrowright', 'arrowleft', 'arrowright', 'b', 'a'];
-const TYPED = [['marseille', 'marseille'], ['1993', '1993'], ['poulet', 'poulet'], ['nimes', 'nimes']];
+const TYPED = [['marseille', 'marseille'], ['1993', '1993'], ['poulet', 'poulet'], ['nimes', 'nimes'], ['fevrier', 'fevrier'], ['allezlom', 'allezlom'], ['icicestparis', 'feu']];
 const CODE_MAP = {
   marseille: 'marseille', om: 'marseille', '1993': '1993', poulet: 'poulet', nimes: 'nimes', crocos: 'nimes',
   konami: 'konami', uuddlrlrba: 'konami', '↑↑↓↓←→←→ba': 'konami', hauthautbasbasgauchedroitegauchedroiteba: 'konami', tifo: 'konami',
+  fevrier: 'fevrier', allezlom: 'allezlom', icicestparis: 'feu',
 };
-const FX = { konami: tifo, marseille: relegation, '1993': vhs, poulet: chicken, nimes: croc };
+const FX = { konami: tifo, marseille: relegation, '1993': vhs, poulet: chicken, nimes: croc, fevrier, allezlom, feu: fireworks };
 let fxBusy = false;
 function run(id) {
   if (!ctx.isReady() || fxBusy) return;
@@ -169,7 +180,9 @@ function setupKeys() {
     if (k === KONAMI[kpos]) { kpos++; if (kpos === KONAMI.length) { kpos = 0; run('konami'); return; } }
     else kpos = k === KONAMI[0] ? 1 : 0;
     if (k.length !== 1) return;
-    buf = (buf + strip(k)).slice(-16);
+    const ch = strip(k);
+    if (!/[a-z0-9]/.test(ch)) return; // spaces and apostrophes don't break a code ("allez l'om")
+    buf = (buf + ch).slice(-16);
     for (const [code, id] of TYPED) if (buf.endsWith(code)) { buf = ''; run(id); break; }
   });
 
@@ -498,7 +511,7 @@ function vhs() {
 }
 
 /* ---------- 4. "poulet" → the Parisian chicken lays golden eggs ---------- */
-const CHICKEN = `
+export const CHICKEN = `
 <svg viewBox="0 0 110 100" aria-hidden="true">
   <g class="ch-legs" stroke="#f5a623" stroke-width="4" stroke-linecap="round" fill="none">
     <path class="leg l1" d="M46 74 L44 92 M44 92 L38 95 M44 92 L50 95"/>
@@ -659,7 +672,206 @@ function omMode() {
   ov.addEventListener('click', () => tl.timeScale(3.5));
 }
 
-/* ---------- 13/13 ---------- */
+/* ---------- 8. "fevrier" → everything on screen collapses ---------- */
+const FALL_SEL = '.sec-head, .stat, .match, .cp-card, .cp-main, .cp-load, .tape li, .vs-side, .vs-mid, .star-card, .tabs, .simu-side > *, .simu-feed, .quiz-card, .xc-card, .xc-side, .frise, .game-wrap, .museum-cta, .h-panel h3, .h-panel p, .h-year, .s-logo, .s-question, .s-form, .res-card, .three-stage > *, .foot-big, .foot-om, .hero-tag, .mq-row';
+function fevrier() {
+  fxBusy = true;
+  ctx.lockScroll(true);
+  const G = gsap();
+  const vis = $$(FALL_SEL).filter(n => { const r = n.getBoundingClientRect(); return r.width > 0 && r.bottom > 0 && r.top < innerHeight; });
+  const list = vis.filter(n => !vis.some(o => o !== n && o.contains(n))).slice(0, 40);
+  const prev = list.map(n => ({ y: G.getProperty(n, 'y'), rotation: G.getProperty(n, 'rotation') }));
+  const stamp = el('div', 'stamp-fx feb', 'Février<small>Comme chaque année à Marseille : tout s\'effondre.</small>');
+  document.body.append(stamp);
+  const tl = G.timeline({
+    onComplete: () => {
+      stamp.remove(); ctx.lockScroll(false); fxBusy = false;
+      toast('…Et en mars, ils parleront d\'un « petit passage à vide ».');
+      egg('fevrier');
+    },
+  });
+  tl.fromTo(stamp, { y: -innerHeight * .6, rotate: -8 }, { y: 0, rotate: -4, duration: 1, ease: 'bounce.out' }, 0);
+  list.forEach(n => {
+    const r = n.getBoundingClientRect();
+    tl.to(n, { y: `+=${Math.max(0, innerHeight - r.bottom - Math.random() * 18)}`, rotation: (Math.random() - .5) * 40, duration: .9 + Math.random() * .5, ease: 'bounce.out' }, .15 + Math.random() * .5);
+  });
+  tl.to({}, { duration: 1.4 });
+  list.forEach((n, i) => tl.to(n, { ...prev[i], duration: .9, ease: 'expo.out' }, `-=${i ? .88 : 0}`));
+  tl.to(stamp, { opacity: 0, scale: .7, duration: .35 }, '<');
+}
+
+/* ---------- 9. "allez l'om" → sad trombone ---------- */
+function allezlom() {
+  fxBusy = true;
+  const ov = el('div', 'fx-overlay sad', '<div class="sad-in"><div class="sad-t">Allez l\'OM…</div><div class="sad-s">Erreur : enthousiasme non pris en charge depuis 2012.</div></div>');
+  document.body.append(ov);
+  trombone();
+  gsap().timeline({
+    onComplete: () => {
+      ov.remove(); fxBusy = false;
+      toast('C\'est bon, tu peux arrêter. Eux aussi arrêtent d\'y croire en février.');
+      egg('allezlom');
+    },
+  })
+    .fromTo(ov, { opacity: 0 }, { opacity: 1, duration: .5 })
+    .from($('.sad-t', ov), { y: -40, opacity: 0, duration: .6, ease: 'back.out(2)' }, .1)
+    .to($('.sad-t', ov), { rotate: 9, y: 40, scaleY: .9, duration: 2.6, ease: 'power2.in' }, .9)
+    .from($('.sad-s', ov), { opacity: 0, y: 10, duration: .5 }, 1.3)
+    .to(ov, { opacity: 0, duration: .6 }, '+=.5');
+}
+function trombone() {
+  try {
+    const AC = window.AudioContext || window.webkitAudioContext;
+    if (!AC) return;
+    const ac = new AC(), out = ac.createGain();
+    out.gain.value = .22;
+    out.connect(ac.destination);
+    const notes = [[293.66, .42], [277.18, .42], [261.63, .42], [246.94, 1.6]]; // ré, do#, do, si… wah wah wah waaah
+    let t = ac.currentTime + .1;
+    notes.forEach(([f, d], i) => {
+      const o = ac.createOscillator(), flt = ac.createBiquadFilter(), gn = ac.createGain();
+      o.type = 'sawtooth';
+      o.frequency.setValueAtTime(f, t);
+      if (i === notes.length - 1) {
+        const lfo = ac.createOscillator(), lg = ac.createGain();
+        lfo.frequency.value = 6; lg.gain.value = 7;
+        lfo.connect(lg).connect(o.frequency);
+        lfo.start(t); lfo.stop(t + d);
+        o.frequency.linearRampToValueAtTime(f * .93, t + d);
+      }
+      flt.type = 'lowpass';
+      flt.frequency.setValueAtTime(450, t);
+      flt.frequency.linearRampToValueAtTime(1500, t + .12);
+      flt.frequency.linearRampToValueAtTime(550, t + d);
+      gn.gain.setValueAtTime(0, t);
+      gn.gain.linearRampToValueAtTime(1, t + .04);
+      gn.gain.setValueAtTime(1, t + d - .09);
+      gn.gain.linearRampToValueAtTime(0, t + d);
+      o.connect(flt).connect(gn).connect(out);
+      o.start(t); o.stop(t + d + .02);
+      t += d + .05;
+    });
+    setTimeout(() => ac.close().catch(() => {}), (t - ac.currentTime + .6) * 1000);
+  } catch { /* no audio */ }
+}
+
+/* ---------- 10. "ici c'est paris" → fireworks ---------- */
+function fireworks() {
+  fxBusy = true;
+  ctx.scene('t:PARIS', { gold: 1, opacity: 1 });
+  ctx.P.pulse();
+  gsap().fromTo('.flash', { opacity: .85 }, { opacity: 0, duration: 1.1 });
+  const end = Date.now() + 4200;
+  const PAL = [['#e8c25a', '#fff1b8'], ['#da291c', '#ffffff'], ['#1f6fd1', '#ffffff'], ['#ffffff', '#e8c25a']];
+  (function shoot() {
+    if (Date.now() > end) {
+      fxBusy = false;
+      ctx.restore();
+      toast('<b>ICI C\'EST PARIS ★★</b> Feu d\'artifice offert par le club. Marseille regarde depuis le Vieux-Port.');
+      egg('feu');
+      return;
+    }
+    fire({ particleCount: 70, spread: 360, startVelocity: 28, gravity: .7, ticks: 150, decay: .92, origin: { x: .1 + Math.random() * .8, y: .12 + Math.random() * .38 }, colors: pick(PAL), shapes: ['star', 'circle'], scalar: .9 });
+    setTimeout(shoot, 240 + Math.random() * 240);
+  })();
+}
+
+/* ---------- 11. shake the mouse → rage quit ---------- */
+let rageAt = 0;
+function rage() {
+  if (!ctx.isReady() || Date.now() - rageAt < 5000) return;
+  rageAt = Date.now();
+  gsap().fromTo(['#gl', '.nav'], { x: -14 }, { x: 0, duration: .9, ease: 'elastic.out(1.4,.15)' });
+  toast(pick([
+    'Calme-toi. T\'es pas au Vélodrome après un Classique.',
+    'Respire. Le 5–0, c\'était en février, c\'est fini.',
+    'Lâche cette souris, elle n\'a rien fait. Paris non plus : il a juste gagné.',
+  ]));
+  egg('rage');
+}
+function setupRage() {
+  let lastX = 0, lastT = 0, dir = 0, flips = [];
+  addEventListener('pointermove', e => {
+    if (e.pointerType !== 'mouse') return;
+    const now = performance.now(), dx = e.clientX - lastX, dt = now - lastT;
+    lastX = e.clientX; lastT = now;
+    if (dt <= 0 || dt > 80 || Math.abs(dx) / dt < 1.5) return;
+    const d = Math.sign(dx);
+    if (d && d !== dir) {
+      dir = d;
+      flips = [...flips, now].filter(t => now - t < 1000);
+      if (flips.length >= 9) { flips = []; rage(); }
+    }
+  }, { passive: true });
+  let shakes = [];
+  addEventListener('devicemotion', e => {
+    const a = e.accelerationIncludingGravity;
+    if (!a || Math.hypot(a.x || 0, a.y || 0, a.z || 0) < 30) return;
+    const now = performance.now();
+    shakes = [...shakes, now].filter(t => now - t < 1200);
+    if (shakes.length >= 4) { shakes = []; rage(); }
+  });
+}
+
+/* ---------- 12. scroll like you're leaving the Vélodrome at 80' ---------- */
+function setupFuite() {
+  let lastY = scrollY, lastT = performance.now(), hits = 0;
+  addEventListener('scroll', () => {
+    const now = performance.now(), dt = now - lastT;
+    if (dt < 40) return;
+    const v = Math.abs(scrollY - lastY) / dt;
+    lastY = scrollY; lastT = now;
+    if (!ctx.isReady() || ctx.isAutoScroll() || found.has('fuite')) { hits = 0; return; }
+    hits = v > 6 ? hits + 1 : 0;
+    if (hits >= 4) { hits = 0; toast('Doucement ! On dirait une sortie de Vélodrome à la 80e minute.'); egg('fuite'); }
+  }, { passive: true });
+}
+
+/* ---------- 13. the 1993 star comes unstuck ---------- */
+function setupOmStar() {
+  const s = $('.om-star');
+  if (!s) return;
+  let clicks = 0;
+  s.addEventListener('click', e => {
+    e.stopPropagation();
+    if (s.classList.contains('gone')) { toast('Elle est partie. Comme leurs chances de titre chaque février.'); return; }
+    clicks++;
+    const G = gsap();
+    if (clicks < 3) {
+      G.fromTo(s, { rotate: 0 }, { rotate: clicks === 1 ? 14 : -24, duration: .7, ease: 'elastic.out(1.2,.3)' });
+      toast(clicks === 1 ? 'Elle bouge un peu… Normal, elle date de 1993.' : 'Ça se décolle. Encore un clic ?');
+      return;
+    }
+    s.classList.add('gone');
+    const r = s.getBoundingClientRect();
+    const clone = el('div', 'om-star-fall', '★');
+    clone.style.cssText = `left:${r.left}px;top:${r.top}px;font-size:${getComputedStyle(s).fontSize}`;
+    document.body.append(clone);
+    s.style.visibility = 'hidden';
+    G.timeline({ onComplete: () => clone.remove() })
+      .to(clone, { rotate: 40, duration: .2, ease: 'power2.out' })
+      .to(clone, { y: innerHeight - r.top + 80, x: 60 + Math.random() * 140, rotate: 560, duration: 1.4, ease: 'power2.in' });
+    const sm = $('.vs-om .vs-stars small');
+    if (sm) sm.textContent = '1993 · elle a lâché';
+    toast('L\'étoile de 1993 s\'est décrochée. Après 33 ans, elle ne tenait plus.');
+    egg('etoile-om');
+  });
+}
+
+/* ---------- calendar bonuses (not counted) ---------- */
+function dateBonus() {
+  const d = new Date(), m = d.getMonth(), day = d.getDate(), y = d.getFullYear();
+  const msg = m === 1 && day === 8 ? '8 février : joyeux anniversaire au 5–0 du Parc.'
+    : m === 1 ? 'Nous sommes en février. Une pensée émue pour l\'OM.'
+      : m === 3 && day === 14 ? `14 avril : ${y - 2012} ans aujourd'hui que l'OM n'a rien gagné. On allume une bougie ?`
+        : m === 4 && day === 26 ? `26 mai : ${y - 1993} ans de leur Ligue des champions. Et toujours rien depuis 2012.`
+          : m === 4 && day === 30 ? '30 mai : anniversaire de Budapest. La deuxième étoile.'
+            : m === 4 && day === 31 ? '31 mai : anniversaire de Munich, 5–0. La première étoile.'
+              : '';
+  if (msg) setTimeout(() => toast(msg, { dur: 7000 }), 7500);
+}
+
+/* ---------- all found ---------- */
 function finale() {
   ctx.scene('stars3', { gold: 1, opacity: 1 });
   ctx.P.pulse();
@@ -670,7 +882,7 @@ function finale() {
     fire({ particleCount: 8, angle: 120, spread: 70, origin: { x: 1, y: .8 }, colors: ctx.COLORS, shapes: ['star'] });
     if (Date.now() < end) requestAnimationFrame(frame);
   })();
-  toast(`<span class="t-egg">${EGG_ICON}</span><span><b>13/13 · Chasse terminée.</b><br>Tu as trouvé plus de choses ici que l'OM depuis 2012. Respect.</span>`, { kind: 'egg', dur: 9000 });
+  toast(`<span class="t-egg">${EGG_ICON}</span><span><b>${EGGS.length}/${EGGS.length} · Chasse terminée.</b><br>Tu as trouvé plus de choses ici que l'OM depuis 2012. Respect.</span>`, { kind: 'egg', dur: 9000 });
   setTimeout(() => ctx.restore(), 6000);
 }
 
@@ -686,6 +898,10 @@ export function initEggs(c) {
   setupIdle();
   setupEnvelope();
   setupConsole();
+  setupRage();
+  setupFuite();
+  setupOmStar();
+  dateBonus();
   $('#om-mode')?.addEventListener('click', omMode);
   $('#eggs-open')?.addEventListener('click', () => togglePanel(true));
 }

@@ -1,5 +1,6 @@
 import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js';
-import { initEggs, egg, hasEgg, toast, onEscape, tumbleSVG } from './eggs.js';
+import { initEggs, egg, hasEgg, toast, onEscape, tumbleSVG, CHICKEN } from './eggs.js';
+import { setMarseilleCtx, setupFrise, setupExcuses, setupQuiz, setupGame } from './marseille.js';
 
 /* =========================================================
    PSG — Ici c'est Paris
@@ -34,7 +35,7 @@ gsap.ticker.lagSmoothing(0);
 lenis.stop();
 
 // modals and easter eggs can freeze the page; the loader owns it until ready
-let locks = 0;
+let locks = 0, autoUntil = 0;
 function lockScroll(on) {
   locks = Math.max(0, locks + (on ? 1 : -1));
   if (!ready) return;
@@ -373,6 +374,7 @@ function setupGlobal() {
     if (target === null) return;
     e.preventDefault();
     if (a.dataset.tab) switchTab(a.dataset.tab);
+    autoUntil = Date.now() + 2400;
     lenis.scrollTo(target, { duration: 1.8, easing: t => 1 - Math.pow(1 - t, 4) });
   }));
 
@@ -1163,13 +1165,18 @@ setupMarquee();
 setupHistory();
 setupStats();
 setupStars();
+setMarseilleCtx({ gsap, ScrollTrigger, zone, scene, toast, egg, confetti, reduce, isTouch, CHICKEN, tumbleSVG });
 setupClassique();
+setupFrise();
 setupCompteur();
+setupExcuses();
 setupSimu();
+setupQuiz();
+setupGame();
 setupMuseum();
 setupSearch();
 setupFooter();
-initEggs({ P, scene, restore: restoreScene, lockScroll, isReady: () => ready, COLORS });
+initEggs({ P, scene, restore: restoreScene, lockScroll, isReady: () => ready, isAutoScroll: () => Date.now() < autoUntil, COLORS });
 
 await Promise.race([document.fonts.load('400 100px Anton'), sleep(2500)]);
 runLoader();

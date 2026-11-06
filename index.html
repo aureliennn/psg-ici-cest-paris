@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Paris Saint-Germain — Ici c'est Paris</title>
-<meta name="description" content="Le Paris Saint-Germain en animations : l'histoire, les deux étoiles, le Classique, le compteur de l'OM et 13 secrets à trouver.">
+<meta name="description" content="Le Paris Saint-Germain en animations : l'histoire, les deux étoiles, le Classique, le compteur de l'OM, un quiz, un jeu du poulet et 22 secrets à trouver.">
 <meta name="theme-color" content="#000c1a">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23004170'/%3E%3Crect x='42' width='16' height='100' fill='%23da291c'/%3E%3Cpolygon points='50,14 58.5,37 83,38 64,53 70.5,77 50,63.5 29.5,77 36,53 17,38 41.5,37' fill='%23e8c25a'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -81,6 +81,7 @@
     <a href="#etoiles" data-tab="two"><span data-t="Étoiles">Étoiles</span></a>
     <a href="#classique"><span data-t="Classique">Classique</span></a>
     <a href="#compteur"><span data-t="Marseille">Marseille</span></a>
+    <a href="#quiz" class="hide-md"><span data-t="Jeux">Jeux</span></a>
     <a href="#recherche" class="hide-md"><span data-t="Recherche">Recherche</span></a>
     <a href="#etoiles" data-tab="three" class="nav-cta" data-magnetic>Une 3ème… ?</a>
   </nav>
@@ -282,7 +283,7 @@
     <div class="vs-side vs-om" data-cursor="1993">
       <span class="vs-kicker">Olympique de Marseille · dernière mise à jour : 2012</span>
       <b>Marseille</b>
-      <span class="vs-stars">★ <small>1993 · puis plus rien</small></span>
+      <span class="vs-stars"><button class="om-star" type="button" aria-label="L'étoile de 1993" data-cursor="1993">★</button> <small>1993 · puis plus rien</small></span>
       <svg class="vs-crack" viewBox="0 0 200 200" aria-hidden="true"><path d="M120 0 L108 40 L126 62 L98 104 L116 128 L90 200 M108 40 L80 52 M98 104 L70 110 M116 128 L150 150"/></svg>
     </div>
   </div>
@@ -319,6 +320,27 @@
       <div class="tp-v r">0</div>
     </li>
   </ul>
+
+  <figure class="frise">
+    <div class="fr-head">
+      <div>
+        <div class="m-head">La frise · 1993 → 2026</div>
+        <figcaption class="fr-sub">Trophées majeurs gagnés chaque année : championnat, Coupe de France, coupes d'Europe.</figcaption>
+      </div>
+      <ul class="fr-legend" aria-label="Légende">
+        <li><i class="fr-sw psg"></i>Paris</li>
+        <li><i class="fr-sw om"></i>Marseille</li>
+        <li><i class="fm l1 key"></i>Championnat</li>
+        <li><i class="fm cdf key"></i>Coupe de France</li>
+        <li><i class="fm eu key"></i>Coupe d'Europe</li>
+        <li><i class="fm ret key"></i>Retiré</li>
+      </ul>
+    </div>
+    <div class="fr-scroll"><div class="fr-grid" id="fr-grid" role="img"></div></div>
+    <p class="fr-hint" aria-hidden="true">Glisse jusqu'en 2026 →</p>
+    <div class="fr-tip" aria-hidden="true"></div>
+    <details class="fr-table"><summary>Voir les données</summary><div id="fr-data" class="fr-data"></div></details>
+  </figure>
 
   <div class="matches">
     <div class="m-head">Morceaux choisis</div>
@@ -407,9 +429,36 @@
   </div>
 </section>
 
+<!-- ============ EXCUSES ============ -->
+<section id="excuses" class="sec excuses">
+  <div class="sec-head"><span class="sec-idx">06</span><h2 class="title split">Les excuses</h2></div>
+  <div class="xc-wrap">
+    <div class="xc-card">
+      <div class="xc-k">Générateur officiel · conférence de presse d'après-match</div>
+      <blockquote class="xc-quote" id="xc-quote" aria-live="polite">« Appuie sur le bouton. À Marseille, on a une excuse pour tout. »</blockquote>
+      <div class="xc-meta"><span id="xc-n">Excuse n°— sur 4 860</span><span id="xc-cred">Crédibilité : —</span></div>
+      <div class="xc-btns">
+        <button id="xc-go" class="xc-go" type="button" data-magnetic data-cursor="Excuse">Générer une excuse ↻</button>
+        <button id="xc-copy" class="xc-copy" type="button">Copier</button>
+      </div>
+    </div>
+    <aside class="xc-side">
+      <div class="xc-gl">Mistral-mètre · Vélodrome</div>
+      <svg class="xc-gauge" viewBox="0 0 200 116" aria-hidden="true">
+        <path class="xc-track" d="M20 100 A80 80 0 0 1 180 100"/>
+        <path class="xc-arc" id="xc-arc" d="M20 100 A80 80 0 0 1 180 100"/>
+        <g id="xc-needle"><path d="M100 100 L100 32" class="xc-n"/><circle cx="100" cy="100" r="7" class="xc-hub"/></g>
+      </svg>
+      <b id="xc-wind" class="xc-wind">— km/h</b>
+      <div class="xc-stat"><span>Excuses générées</span><b id="xc-count">0</b></div>
+      <div class="xc-stat"><span>Déjà utilisées par l'OM</span><b>4 860 / 4 860</b></div>
+    </aside>
+  </div>
+</section>
+
 <!-- ============ SIMULATEUR ============ -->
 <section id="simulateur" class="sec simu">
-  <div class="sec-head"><span class="sec-idx">06</span><h2 class="title split">Le simulateur</h2></div>
+  <div class="sec-head"><span class="sec-idx">07</span><h2 class="title split">Le simulateur</h2></div>
   <div class="simu-wrap">
     <div class="simu-side">
       <div class="simu-kicker">Olympique de Marseille · Saison 2026-27</div>
@@ -433,9 +482,44 @@
   </div>
 </section>
 
+<!-- ============ QUIZ ============ -->
+<section id="quiz" class="sec quiz">
+  <div class="sec-head"><span class="sec-idx">08</span><h2 class="title split">Le quiz</h2></div>
+  <div class="quiz-card" id="quiz-card">
+    <div class="qz-top"><span class="qz-k">Le quiz du Classique</span><div class="qz-dots" id="qz-dots" aria-hidden="true"></div></div>
+    <div class="qz-body" id="qz-body"></div>
+  </div>
+</section>
+
+<!-- ============ JEU DU POULET ============ -->
+<section id="poulet" class="sec poulet">
+  <div class="sec-head"><span class="sec-idx">09</span><h2 class="title split">Le jeu du poulet</h2></div>
+  <div class="game-wrap">
+    <div class="game-hud">
+      <span>Score <b id="g-score">0</b></span>
+      <span>Temps <b id="g-time">30</b></span>
+      <span>Record <b id="g-best">0</b></span>
+    </div>
+    <div class="game-stage">
+      <canvas id="game" aria-label="Jeu : rattrape les œufs en or pondus par le poulet parisien"></canvas>
+      <div class="game-ui" id="game-ui">
+        <div class="game-k">Le poulet parisien pond · toi, tu rattrapes</div>
+        <h3 class="game-h">Attrape l'or.<br><span>Évite le bleu ciel.</span></h3>
+        <ul class="game-rules">
+          <li><i class="r-gold"></i>Œuf en or · +1</li>
+          <li><i class="r-star"></i>Œuf étoilé · +3</li>
+          <li><i class="r-om"></i>Œuf de l'OM, périmé depuis 2012 · −2</li>
+        </ul>
+        <button id="game-go" class="game-go" type="button">Jouer · 30 secondes ▶</button>
+        <p class="game-hint">Souris, doigt ou flèches ← →</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ============ RECHERCHE ============ -->
 <section id="recherche" class="sec search">
-  <div class="sec-head center"><span class="sec-idx">07</span><h2 class="title split">La question</h2></div>
+  <div class="sec-head center"><span class="sec-idx">10</span><h2 class="title split">La question</h2></div>
   <div class="search-wrap">
     <div class="s-logo" aria-label="Cherche Paris"><span>C</span><span>h</span><span>e</span><span>r</span><span>c</span><span>h</span><span>e</span><span class="dot">·</span><span>P</span><span>a</span><span>r</span><span>i</span><span>s</span></div>
     <p class="s-question">Une seule recherche autorisée : <b>quel est le pire club ?</b></p>
@@ -512,10 +596,10 @@
   <div class="foot-big split">Ici c'est Paris</div>
   <div class="foot-om">
     <p>Aucun Marseillais n'a été blessé pendant la conception de ce site. Juste vexé.</p>
-    <p class="foot-hint">13 secrets sont cachés ici. L'OM cherche un trophée depuis 2012 — toi, tu peux chercher des œufs.</p>
+    <p class="foot-hint"><span class="eggs-total">22</span> secrets sont cachés ici. L'OM cherche un trophée depuis 2012 — toi, tu peux chercher des œufs.</p>
     <div class="foot-links">
       <button id="om-mode" class="foot-link" type="button">Voir la version marseillaise du site</button>
-      <button id="eggs-open" class="foot-link" type="button">Secrets trouvés : <b class="eggs-count">0/13</b></button>
+      <button id="eggs-open" class="foot-link" type="button">Secrets trouvés : <b class="eggs-count">0/22</b></button>
     </div>
   </div>
   <div class="foot-row">

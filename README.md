@@ -6,15 +6,18 @@ Site fan (non officiel) du Paris Saint-Germain, entièrement conçu, codé et an
 - **Histoire** en scroll horizontal (GSAP ScrollTrigger + Lenis), dont 1993 : le titre retiré à Marseille, proposé à Paris, refusé.
 - **Les deux étoiles** : Munich 2025 (5–0) et Budapest 2026 (back-to-back)
 - **Une 3ème… ?** : maintiens le bouton pour invoquer le back-to-back-to-back
-- **Le Classique** : Paris vs Marseille, palmarès comparé barre par barre et morceaux choisis (le 5–0 du 08.02.2026, le Koweït…)
+- **Le Classique** : Paris vs Marseille, palmarès comparé barre par barre, morceaux choisis (le 5–0 du 08.02.2026, le Koweït…) et **la frise 1993 → 2026** des trophées majeurs : Paris 30, Marseille 2, et le « désert du Vieux-Port » depuis 2011.
 - **Le compteur** : temps écoulé, à la seconde près, depuis le dernier trophée de l'OM (14.04.2012). Il ne s'arrête jamais.
+- **Les excuses** : générateur officiel d'excuses d'après-match (4 860 combinaisons) avec mistral-mètre.
 - **Le simulateur** : simule la saison de l'OM. Dix mois, des milliers de scénarios, un seul résultat.
+- **Le quiz du Classique** : 8 questions tirées parmi 12, réponses vérifiées, rang final de « Ultra d'Auteuil » à « zéro pointé ».
+- **Le jeu du poulet** : 30 secondes pour rattraper les œufs en or du poulet parisien et éviter les œufs de l'OM (périmés depuis 2012). Record sauvegardé.
 - **Le musée de l'OM** : une coupe, beaucoup de poussière, des toiles d'araignée et un virevoltant.
 - **Le moteur de recherche** : une seule question, une seule réponse. Tape Nîmes, ça marche quand même.
-- **13 secrets** cachés partout (un compteur apparaît dès le premier trouvé, les indices sont dans le footer).
+- **22 secrets** cachés partout (un compteur apparaît dès le premier trouvé, les indices sont dans le footer).
 
 <details>
-<summary>Spoilers : les 13 secrets</summary>
+<summary>Spoilers : les 22 secrets</summary>
 
 | # | Secret | Comment |
 |---|--------|---------|
@@ -31,11 +34,20 @@ Site fan (non officiel) du Paris Saint-Germain, entièrement conçu, codé et an
 | 11 | Le développeur | `palmaresOM()` dans la console |
 | 12 | Le rêve | Simuler des saisons de l'OM jusqu'à ce qu'ils rêvent |
 | 13 | Coup de chiffon | Dépoussiérer la coupe du musée |
+| 14 | Février | Taper `fevrier` : tout s'effondre |
+| 15 | Allez l'OM | Taper `allez l'om` : trombone triste |
+| 16 | Feu d'artifice | Taper `ici c'est paris` |
+| 17 | Rage quit | Secouer la souris (ou le téléphone) |
+| 18 | L'étoile qui lâche | Cliquer 3 fois sur l'étoile de Marseille dans le Classique |
+| 19 | La fuite | Scroller très, très vite |
+| 20 | Le zéro pointé | Finir le quiz avec 0 bonne réponse |
+| 21 | Porte-parole | Générer 15 excuses |
+| 22 | Le poulailler d'or | Faire 20 points en œufs dorés au jeu du poulet |
 
-Sur mobile, les codes clavier se tapent dans le champ « code secret » du panneau des secrets.
+Sur mobile, les codes clavier se tapent dans le champ « code secret » du panneau des secrets. Bonus non comptés : messages spéciaux certains jours (février, 14 avril, 26, 30 et 31 mai).
 </details>
 
-Aucune étape de build : `index.html`, `style.css`, `main.js`, `eggs.js`. Les librairies viennent de CDN.
+Aucune étape de build : `index.html`, `style.css`, `main.js`, `eggs.js`, `marseille.js`. Les librairies viennent de CDN.
 
 ```bash
 python -m http.server 5173
