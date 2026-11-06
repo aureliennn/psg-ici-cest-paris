@@ -11,56 +11,67 @@ export const RELEASES = [
     id: 'hob', title: 'House of Balloons', date: '2011-03-21', kind: 'mixtape', c1: '#d9d4cf', c2: '#2a2a2e', motif: 'balloons',
     note: 'Première mixtape, offerte en téléchargement gratuit. Le mystère est total : personne ne sait qui chante.',
     keys: ['Wicked Games', 'The Morning', 'High for This'],
+    tracks: [{ t: 'Wicked Games', yt: 'lcWZtYB_-ZM', k: 'audio' }, { t: 'High for This', yt: 'R_XW_CIwbB8', k: 'audio' }],
   },
   {
     id: 'thu', title: 'Thursday', date: '2011-08-18', kind: 'mixtape', c1: '#8fa3b8', c2: '#101722', motif: 'bars',
     note: 'Deuxième mixtape gratuite, cinq mois plus tard. Drake s\'invite sur « The Zone ».',
     keys: ['Rolling Stone', 'The Zone'],
+    tracks: [{ t: 'Rolling Stone', yt: 'ZhAFjoOlXGs', k: 'audio' }, { t: 'Rolling Stone', yt: 'ORVz_qeKgvg', k: 'clip' }],
   },
   {
     id: 'eos', title: 'Echoes of Silence', date: '2011-12-21', kind: 'mixtape', c1: '#f2f2f2', c2: '#050505', motif: 'echo',
     note: 'Troisième mixtape de l\'année. Trois projets en neuf mois, tous gratuits.',
     keys: ['Montreal', 'D.D.'],
+    tracks: [{ t: 'Montreal', yt: 'Zf5ZAUejCYU', k: 'audio' }],
   },
   {
     id: 'tri', title: 'Trilogy', date: '2012-11-13', kind: 'compil', c1: '#b9b9b9', c2: '#111', motif: 'three', peak: 4, week: 86000,
     note: 'Les trois mixtapes remasterisées + trois inédits. Premier projet chez Republic, en partenariat avec son label XO.',
     keys: ['Twenty Eight', 'Wicked Games'],
+    tracks: [{ t: 'Twenty Eight', yt: '18tPsjv2kyI', k: 'audio' }, { t: 'Wicked Games', yt: 'O1OTWCd40bc', k: 'clip' }],
   },
   {
     id: 'kl', title: 'Kiss Land', date: '2013-09-10', kind: 'album', c1: '#ff3d8b', c2: '#16051a', motif: 'grid', peak: 2, week: 95000,
     note: 'Premier album studio. Une ambiance néon, entre Tokyo et le cinéma d\'horreur.',
     keys: ['Belong to the World', 'Live For', 'Kiss Land'],
+    tracks: [{ t: 'Belong to the World', yt: 'mwN6KIJzvHU', k: 'audio' }, { t: 'Live For (avec Drake)', yt: 'OZxsjZQ36jM', k: 'audio' }],
   },
   {
     id: 'bbtm', title: 'Beauty Behind the Madness', date: '2015-08-28', kind: 'album', c1: '#ff8a1f', c2: '#1a0700', motif: 'flame', peak: 1, week: 412000,
     note: 'Premier n°1 au Billboard 200. Deux n°1 au Hot 100, une nomination aux Oscars pour « Earned It », deux Grammys.',
     keys: ['Can\'t Feel My Face', 'The Hills', 'Earned It'],
+    tracks: [{ t: 'Can\'t Feel My Face', yt: 'KEI4qSrkPAs', k: 'clip' }, { t: 'The Hills', yt: 'yzTuBuRdAyA', k: 'clip' }, { t: 'Earned It', yt: 'waU75jdUnYw', k: 'clip' }],
   },
   {
     id: 'sb', title: 'Starboy', date: '2016-11-25', kind: 'album', c1: '#4d7cff', c2: '#ff2bd6', motif: 'cross', peak: 1, week: 348000,
     note: 'Deux titres avec Daft Punk, dont « Starboy », n°1 au Hot 100. Grammy du meilleur album urbain contemporain.',
     keys: ['Starboy', 'I Feel It Coming', 'Party Monster'],
+    tracks: [{ t: 'Starboy (avec Daft Punk)', yt: '34Na4j8AVgA', k: 'clip' }, { t: 'I Feel It Coming (avec Daft Punk)', yt: 'qFLhGq0060w', k: 'clip' }, { t: 'Party Monster', yt: 'diW6jXhLE0E', k: 'clip' }],
   },
   {
     id: 'mdm', title: 'My Dear Melancholy,', date: '2018-03-30', kind: 'ep', c1: '#aab3c2', c2: '#0b0d12', motif: 'comma', peak: 1, week: 169000,
     note: 'Six titres sortis par surprise. Troisième n°1 d\'affilée — avec une virgule dans le titre.',
     keys: ['Call Out My Name', 'Try Me'],
+    tracks: [{ t: 'Call Out My Name', yt: 'M4ZoCHID9GI', k: 'clip' }],
   },
   {
     id: 'ah', title: 'After Hours', date: '2020-03-20', kind: 'album', c1: '#ff1f3d', c2: '#140003', motif: 'city', peak: 1, week: 444000,
     note: 'La plus grosse semaine de 2020 à sa sortie. Contient « Blinding Lights », sacré plus grand tube de l\'histoire du Hot 100.',
     keys: ['Heartless', 'Blinding Lights', 'Save Your Tears', 'In Your Eyes'],
+    tracks: [{ t: 'Blinding Lights', yt: '4NRXx6U8ABQ', k: 'clip' }, { t: 'Heartless', yt: '1DpH-icPpl0', k: 'clip' }, { t: 'In Your Eyes', yt: 'dqRZDebPIGs', k: 'clip' }, { t: 'Save Your Tears', yt: 'XXYlFuWEuKI', k: 'clip' }],
   },
   {
     id: 'dfm', title: 'Dawn FM', date: '2022-01-07', kind: 'album', c1: '#ffb38a', c2: '#0b1e3d', motif: 'waves', peak: 2, week: 148000,
     note: 'Un album pensé comme une émission de radio, « 103.5 Dawn FM », présentée par Jim Carrey.',
     keys: ['Take My Breath', 'Sacrifice', 'Out of Time'],
+    tracks: [{ t: 'Take My Breath', yt: 'rhTl_OyehF8', k: 'clip' }, { t: 'Sacrifice', yt: 'VafTMsrnSTU', k: 'clip' }, { t: 'Out of Time', yt: '2fDzCWNS3ig', k: 'clip' }],
   },
   {
     id: 'hut', title: 'Hurry Up Tomorrow', date: '2025-01-31', kind: 'album', c1: '#efe8dc', c2: '#1b0505', motif: 'sun', peak: 1, week: 490500,
     note: 'Dernier volet de la trilogie After Hours · Dawn FM · Hurry Up Tomorrow. Meilleure première semaine de sa carrière, et un film du même nom en mai 2025.',
     keys: ['Dancing in the Flames', 'Timeless', 'São Paulo'],
+    tracks: [{ t: 'Dancing in the Flames', yt: 'MLlSSJ0z7xM', k: 'clip' }, { t: 'Timeless (avec Playboi Carti)', yt: '5EpyN_6dqyk', k: 'clip' }, { t: 'São Paulo (avec Anitta)', yt: 'AQ5NlI-SJR0', k: 'audio' }],
   },
 ];
 export const KIND = { mixtape: 'Mixtape', compil: 'Compilation', album: 'Album studio', ep: 'EP' };

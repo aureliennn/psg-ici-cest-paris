@@ -3,19 +3,21 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>The Weeknd — La carrière</title>
-<meta name="description" content="Site fan non officiel : la carrière de The Weeknd, des mixtapes de 2011 à la tournée After Hours til Dawn. Discographie, vinyles, tournées, ventes, records et 15 secrets.">
-<meta name="theme-color" content="#050506">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23050506'/%3E%3Cpath d='M18 30 L46 70 M46 30 L18 70' stroke='%23ff1f3d' stroke-width='9' stroke-linecap='round'/%3E%3Ccircle cx='70' cy='50' r='16' fill='none' stroke='%23ff1f3d' stroke-width='9'/%3E%3C/svg%3E">
+<title>Abel Tesfaye — The Weeknd, la carrière</title>
+<meta name="description" content="Site fan non officiel : la carrière d'Abel Tesfaye, alias The Weeknd, sous un ciel étoilé. Discographie, platine avec les clips officiels, tournées, ventes, records et 16 secrets.">
+<meta name="theme-color" content="#040407">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23040407'/%3E%3Cpath d='M18 30 L46 70 M46 30 L18 70' stroke='%23ff1f3d' stroke-width='9' stroke-linecap='round'/%3E%3Ccircle cx='70' cy='50' r='16' fill='none' stroke='%23ff1f3d' stroke-width='9'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=Inter:wght@400;500;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body class="loading">
 
 <div class="ambient" aria-hidden="true"></div>
 <canvas id="gl" aria-hidden="true"></canvas>
+<canvas id="cst" aria-hidden="true"></canvas>
+<div class="vignette" aria-hidden="true"></div>
 <div class="grain" aria-hidden="true"></div>
 <div class="flash" aria-hidden="true"></div>
 <div class="progress" aria-hidden="true"></div>
@@ -31,9 +33,10 @@
       <path d="M44 8 L8 52"/>
       <circle cx="88" cy="30" r="22"/>
     </svg>
-    <div class="loader-word">THE WEEKND</div>
-    <div class="loader-quip" id="quip">Gonflage des ballons…</div>
-    <div class="loader-meta">Abel Tesfaye · 2010 — 2026</div>
+    <div class="loader-word">ABEL TESFAYE</div>
+    <div class="loader-sub">alias The Weeknd</div>
+    <div class="loader-quip" id="quip">Allumage des étoiles…</div>
+    <div class="loader-meta">Carte du ciel · 2010 — 2026</div>
     <div class="loader-count"><span id="count">0</span></div>
   </div>
 </div>
@@ -44,10 +47,10 @@
   <nav class="nav-links">
     <a href="#carriere"><span data-t="Carrière">Carrière</span></a>
     <a href="#discographie"><span data-t="Disques">Disques</span></a>
-    <a href="#vinyles"><span data-t="Vinyles">Vinyles</span></a>
     <a href="#tournees"><span data-t="Tournées">Tournées</span></a>
+    <a href="#records" class="hide-md"><span data-t="Records">Records</span></a>
     <a href="#quiz" class="hide-md"><span data-t="Quiz">Quiz</span></a>
-    <a href="#records" class="nav-cta" data-magnetic>Les records</a>
+    <a href="#vinyles" class="nav-cta" data-magnetic><i class="eq" aria-hidden="true"><b></b><b></b><b></b></i>Écouter</a>
   </nav>
 </header>
 
@@ -55,15 +58,17 @@
 
 <!-- ============ HERO ============ -->
 <section id="top" class="hero">
-  <h1 class="sr-only">The Weeknd — la carrière</h1>
+  <h1 class="sr-only">Abel Tesfaye, alias The Weeknd — la carrière</h1>
   <div class="hero-top">
-    <span>Abel Tesfaye</span>
-    <span class="hide-sm">Né le 16.02.1990 · Toronto</span>
+    <span>Carte du ciel<span class="hide-sm"> · Toronto · 16.02.1990</span></span>
     <span class="red-t">Site fan non officiel</span>
   </div>
   <div class="hero-bottom">
-    <p class="hero-tag split">Trois mixtapes gratuites. Puis le monde.</p>
-    <div class="scroll-hint"><i></i>Scroll</div>
+    <p class="hero-tag">
+      <span class="ht ht-1">Le monde l'appelle The Weeknd.</span>
+      <span class="ht ht-2">Ses parents l'ont appelé <em>Abel</em>.</span>
+    </p>
+    <div class="scroll-hint"><i></i>Suis l'étoile</div>
   </div>
 </section>
 
@@ -85,7 +90,7 @@
     <article class="h-panel h-intro">
       <div class="h-idx fade">01 — La carrière</div>
       <h2>La carrière</h2>
-      <p class="fade">2010 → 2026. De Scarborough à Kuala Lumpur.</p>
+      <p class="fade serif">2010 → 2026. De Scarborough à Kuala Lumpur, une constellation par année.</p>
       <div class="h-arrow fade">→</div>
     </article>
     <article class="h-panel" data-year="2010" data-tint="#d9d4cf">
@@ -166,7 +171,7 @@
 
 <!-- ============ CHIFFRES ============ -->
 <section id="chiffres" class="sec stats">
-  <div class="sec-head"><span class="sec-idx">02</span><h2 class="title split">En chiffres</h2></div>
+  <div class="sec-head"><span class="sec-idx">02</span><div><h2 class="title split">En chiffres</h2><p class="sec-sub">Seize ans de nuits blanches, en données vérifiées.</p></div></div>
   <div class="stat-grid">
     <div class="stat spot"><div class="stat-n"><span data-count="1.3" data-dec="1">0</span><small>Md$</small></div><div class="stat-l">Recettes de la tournée After Hours til Dawn · record masculin</div></div>
     <div class="stat spot"><div class="stat-n"><span data-count="9">0</span><small>M+</small></div><div class="stat-l">Billets vendus sur cette tournée · 176 concerts</div></div>
@@ -181,21 +186,21 @@
 
 <!-- ============ DISCOGRAPHIE ============ -->
 <section id="discographie" class="sec disco">
-  <div class="sec-head"><span class="sec-idx">03</span><h2 class="title split">Les disques</h2></div>
+  <div class="sec-head"><span class="sec-idx">03</span><div><h2 class="title split">Les disques</h2><p class="sec-sub">Onze projets, de la mixtape offerte au carton planétaire.</p></div></div>
   <div class="tabs" role="tablist" aria-label="Filtrer la discographie">
     <span class="tab-pill"></span>
     <button class="tab active" role="tab" data-filter="all">Tout · 11</button>
     <button class="tab" role="tab" data-filter="album">Albums studio</button>
     <button class="tab" role="tab" data-filter="other">Mixtapes, EP &amp; compil</button>
   </div>
-  <p class="disco-hint">Clique sur une pochette pour la retourner.</p>
+  <p class="disco-hint">Clique sur une pochette pour la retourner. Au dos : « poser sur la platine ».</p>
   <div class="disco-grid" id="disco-grid"></div>
   <p class="disco-note">Pochettes : créations originales du site, inspirées des couleurs de chaque époque. Les vraies pochettes appartiennent à leurs auteurs.</p>
 </section>
 
 <!-- ============ VINYLES ============ -->
 <section id="vinyles" class="sec vinyl">
-  <div class="sec-head"><span class="sec-idx">04</span><h2 class="title split">Les vinyles</h2></div>
+  <div class="sec-head"><span class="sec-idx">04</span><div><h2 class="title split">La platine</h2><p class="sec-sub">Pose un disque. Le bras suit la chanson, la constellation tourne avec.</p></div></div>
   <div class="deck">
     <div class="crate-wrap">
       <div class="crate-k">Le bac · choisis un disque</div>
@@ -206,6 +211,7 @@
         <div class="tt-platter"><div class="tt-mat"></div></div>
         <div class="tt-rec" id="tt-rec">
           <div class="tt-grooves"></div>
+          <div class="tt-shine"></div>
           <div class="tt-label" id="tt-label"><span id="tt-label-t">XO</span></div>
           <div class="tt-hole"></div>
         </div>
@@ -216,27 +222,38 @@
           <rect x="52" y="226" width="26" height="16" rx="3" transform="rotate(-24 65 234)" class="arm-head"/>
         </svg>
         <div class="tt-led" id="tt-led"></div>
+        <div class="tt-brand">XO · 33 ⅓ / 45</div>
       </div>
       <div class="tt-ctrl">
-        <button class="tt-btn" id="tt-play" type="button">▶ Lecture</button>
+        <button class="tt-btn tt-play" id="tt-play" type="button">▶ Lecture</button>
+        <button class="tt-btn" id="tt-next" type="button" aria-label="Titre suivant">⏭</button>
         <div class="tt-speed" role="group" aria-label="Vitesse">
           <button class="tt-btn on" data-rpm="33" type="button">33</button>
           <button class="tt-btn" data-rpm="45" type="button">45</button>
         </div>
-        <button class="tt-btn" id="tt-sound" type="button" aria-pressed="false">Son : off</button>
+        <label class="tt-vol"><span>Vol.</span><input id="tt-vol" type="range" min="0" max="100" value="80" aria-label="Volume"></label>
+        <button class="tt-btn" id="tt-crackle" type="button" aria-pressed="true">Craquements : on</button>
       </div>
     </div>
-    <aside class="tt-info" id="tt-info">
-      <div class="ti-k">Sur la platine</div>
-      <h3 class="ti-t">Choisis un disque dans le bac</h3>
-      <p class="ti-p">Chaque vinyle a sa fiche. Le son est une ambiance générée par le site : aucune musique de The Weeknd n'est jouée ici.</p>
-    </aside>
+    <div class="side">
+      <div class="tv" id="tv">
+        <div class="tv-screen" id="tv-screen">
+          <div class="tv-idle"><b>Écran éteint</b><span>Choisis un disque : le clip officiel s'allume ici.</span></div>
+        </div>
+      </div>
+      <ol class="tracks" id="tracks" aria-label="Face A"></ol>
+      <aside class="tt-info" id="tt-info">
+        <div class="ti-k">Sur la platine</div>
+        <h3 class="ti-t">Aucun disque</h3>
+        <p class="ti-p">La musique vient des clips et audios officiels publiés sur YouTube : rien n'est hébergé sur ce site.</p>
+      </aside>
+    </div>
   </div>
 </section>
 
 <!-- ============ TOURNÉES ============ -->
 <section id="tournees" class="sec tours">
-  <div class="sec-head"><span class="sec-idx">05</span><h2 class="title split">Les tournées</h2></div>
+  <div class="sec-head"><span class="sec-idx">05</span><div><h2 class="title split">Les tournées</h2><p class="sec-sub">Des clubs de Toronto aux stades de cinq continents.</p></div></div>
   <div class="tour-hero">
     <div class="th-big"><span id="th-gross">0</span><small>Md$</small></div>
     <div class="th-side">
@@ -262,14 +279,12 @@
 
 <!-- ============ RECORDS & VENTES ============ -->
 <section id="records" class="sec records">
-  <div class="sec-head"><span class="sec-idx">06</span><h2 class="title split">Ventes &amp; records</h2></div>
+  <div class="sec-head"><span class="sec-idx">06</span><div><h2 class="title split">Ventes &amp; records</h2><p class="sec-sub">Les chiffres qui ont fait bouger les classements.</p></div></div>
   <div class="rec-grid" id="rec-grid"></div>
-
   <figure class="fw-chart">
     <figcaption><div class="m-head">Première semaine aux États-Unis</div><span>Unités équivalent-album · Billboard / Luminate · classement Billboard 200</span></figcaption>
     <div class="fw-plot" id="fw-plot"></div>
   </figure>
-
   <div class="grammys">
     <div class="m-head">Les Grammys, une histoire compliquée</div>
     <ol class="gr-line">
@@ -285,7 +300,7 @@
 
 <!-- ============ SUPER BOWL ============ -->
 <section id="superbowl" class="sec bowl">
-  <div class="sec-head"><span class="sec-idx">07</span><h2 class="title split">La galerie des glaces</h2></div>
+  <div class="sec-head"><span class="sec-idx">07</span><div><h2 class="title split">La galerie des glaces</h2><p class="sec-sub">Super Bowl LV, la mi-temps la plus vertigineuse.</p></div></div>
   <div class="bowl-wrap">
     <div class="bowl-txt">
       <div class="bowl-k">Super Bowl LV · 7 février 2021 · Raymond James Stadium, Tampa</div>
@@ -298,7 +313,7 @@
 
 <!-- ============ QUIZ ============ -->
 <section id="quiz" class="sec quiz">
-  <div class="sec-head"><span class="sec-idx">08</span><h2 class="title split">Le quiz XO</h2></div>
+  <div class="sec-head"><span class="sec-idx">08</span><div><h2 class="title split">Le quiz XO</h2><p class="sec-sub">Huit questions. Aucune n'est inventée.</p></div></div>
   <div class="quiz-card" id="quiz-card">
     <div class="qz-top"><span class="qz-k">8 questions · réponses vérifiées</span><div class="qz-dots" id="qz-dots" aria-hidden="true"></div></div>
     <div class="qz-body" id="qz-body"></div>
@@ -307,19 +322,28 @@
 
 </main>
 
+<!-- ============ MINI-LECTEUR ============ -->
+<div class="np" id="np" hidden>
+  <div class="np-disc" id="np-disc"><i></i></div>
+  <div class="np-txt"><b id="np-t">—</b><span id="np-a">The Weeknd</span></div>
+  <button class="np-btn" id="np-play" type="button" aria-label="Pause">❚❚</button>
+  <button class="np-btn" id="np-go" type="button" aria-label="Revenir à la platine">↑</button>
+</div>
+
 <!-- ============ FOOTER ============ -->
 <footer class="foot">
   <div class="foot-big split">XO</div>
   <div class="foot-om">
-    <p><span class="eggs-total">15</span> secrets sont cachés sur ce site. Ils sortent la nuit.</p>
+    <p class="serif foot-line">Les étoiles ne s'éteignent pas le dimanche soir.</p>
+    <p><span class="eggs-total">16</span> secrets sont cachés sur ce site. Ils sortent la nuit.</p>
     <div class="foot-links">
-      <button id="eggs-open" class="foot-link" type="button">Secrets trouvés : <b class="eggs-count">0/15</b></button>
+      <button id="eggs-open" class="foot-link" type="button">Secrets trouvés : <b class="eggs-count">0/16</b></button>
       <a class="foot-link" href="../">← Le site PSG</a>
     </div>
-    <p class="foot-legal">Site fan non officiel, sans lien avec The Weeknd, XO ou Republic Records. Les titres et pochettes appartiennent à leurs ayants droit. Données vérifiées en novembre 2026 (Billboard, Luminate, RIAA, Guinness, Spotify, Pollstar).</p>
+    <p class="foot-legal">Site fan non officiel, sans lien avec The Weeknd, XO ou Republic Records. Titres, clips et pochettes appartiennent à leurs ayants droit ; la musique est lue via les lecteurs officiels de YouTube. Données vérifiées en novembre 2026 (Billboard, Luminate, RIAA, Guinness, Spotify, Pollstar).</p>
   </div>
   <div class="foot-row">
-    <span>The Weeknd · 2010 → 2026</span>
+    <span>Abel Tesfaye · The Weeknd · 2010 → 2026</span>
     <span>Conçu, codé &amp; animé par Claude</span>
     <a href="#top" class="totop" data-magnetic aria-label="Retour en haut">↑</a>
   </div>

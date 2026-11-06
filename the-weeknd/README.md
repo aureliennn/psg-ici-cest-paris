@@ -2,20 +2,21 @@
 
 Site fan **non officiel**, sans lien avec The Weeknd, XO ou Republic Records. Conçu, codé et animé par Claude.
 
-- **La carrière** en scroll horizontal, de décembre 2010 (titres anonymes sur YouTube) à novembre 2026 (fin de la tournée à Kuala Lumpur). Les particules 3D prennent la couleur de chaque époque.
+- **Le ciel** : en fond, un ciel de nuit en pose longue. Les étoiles tournent autour de l'étoile polaire (plus vite quand on scrolle) et se rassemblent en constellations : « ABEL TESFAYE » en haut de page, puis les années, XO, 176, LV…
+- **La carrière** en scroll horizontal, de décembre 2010 (titres anonymes sur YouTube) à novembre 2026 (fin de la tournée à Kuala Lumpur), une constellation par année, à la couleur de l'époque.
 - **En chiffres** : 1,3 Md$ de tournée, 9 M de billets, 5 Md de streams pour « Blinding Lights », 7 n°1 au Hot 100, 5 albums n°1, 4 Grammys…
 - **Les disques** : les 11 projets (3 mixtapes, une compilation, 6 albums studio, un EP), en cartes à retourner, avec date, classement Billboard 200, première semaine et titres clés.
-- **Les vinyles** : une platine. On sort un disque du bac, le bras se pose, le disque tourne en 33 ou 45 tours. Le son est une ambiance générée par le navigateur : **aucune musique de l'artiste n'est jouée**.
+- **La platine** : on sort un disque du bac (ou on le pose depuis le dos d'une pochette) et la musique démarre via les **clips et audios officiels publiés sur YouTube** (lecteur intégré officiel, domaine youtube-nocookie.com). Le disque tourne quand la chanson joue, le bras avance avec elle, 45 tours accélère la lecture, et un mini-lecteur suit quand on scrolle. Rien n'est hébergé sur le site ; seuls les craquements du vinyle sont générés par le navigateur.
 - **Les tournées** : de Kiss Land (2013) à After Hours til Dawn (2022-2026), avec les recettes connues.
 - **Ventes & records** : les records (Spotify, Billboard, RIAA, Guinness), la première semaine de chaque album et l'histoire compliquée avec les Grammys.
 - **La galerie des glaces** : clin d'œil au Super Bowl LV, avec 7 miroirs cachés.
 - **Le quiz XO** : 8 questions tirées parmi 12.
-- **15 secrets**.
+- **16 secrets**.
 
 Les pochettes sont des **créations originales** (formes et couleurs inspirées de chaque époque), pas les vraies pochettes. Aucune parole n'est citée.
 
 <details>
-<summary>Spoilers : les 15 secrets</summary>
+<summary>Spoilers : les 16 secrets</summary>
 
 | Secret | Comment |
 |---|---|
@@ -34,6 +35,7 @@ Les pochettes sont des **créations originales** (formes et couleurs inspirées 
 | La galerie des glaces | Trouver les 7 miroirs |
 | Sans faute | 8/8 au quiz |
 | Le studio | `xo()` dans la console |
+| L'étoile polaire | Cliquer sur l'étoile qui ne bouge pas, en haut de page |
 
 Sur mobile, les codes se tapent dans le champ « code secret » du panneau des secrets.
 </details>

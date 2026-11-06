@@ -29,6 +29,7 @@ export const EGGS = [
   { id: 'miroirs', name: 'La galerie des glaces', hint: 'Trouve les 7 miroirs cachés du Super Bowl.', desc: 'Sortie trouvée.' },
   { id: 'quiz', name: 'Sans faute', hint: 'Fais 8/8 au quiz.', desc: 'XO jusqu\'au bout.' },
   { id: 'console', name: 'Le studio', hint: 'Ouvre la console du navigateur (F12). Un message t\'y attend.', desc: 'Tu as trouvé la régie.' },
+  { id: 'polaire', name: 'L\'étoile polaire', hint: 'Tout en haut de la page, une étoile ne bouge jamais. Clique dessus.', desc: 'Tout le ciel tourne autour d\'elle.' },
 ];
 
 const KEY = 'tw-secrets-v1';
@@ -166,7 +167,7 @@ function setupLogo() {
     n = 0;
     b.classList.add('glow');
     setTimeout(() => b.classList.remove('glow'), 6000);
-    ctx.scene('xo', { opacity: 1 }); ctx.P.pulse();
+    ctx.scene('c:XO', { opacity: 1, tint: '#ff1f3d' }); ctx.P.pulse();
     setTimeout(() => ctx.restore(), 3500);
     egg('logo');
   });
@@ -321,7 +322,7 @@ function synth() {
 /* 2. "xoxo" */
 function xoxo() {
   busy = true;
-  ctx.scene('xo', { opacity: 1 }); ctx.P.pulse();
+  ctx.scene('c:XO', { opacity: 1, tint: '#ff1f3d' }); ctx.P.pulse();
   let shapes = ['circle'];
   try { if (window.confetti?.shapeFromText) shapes = [window.confetti.shapeFromText({ text: 'X', scalar: 2.2, color: '#ff1f3d' }), window.confetti.shapeFromText({ text: 'O', scalar: 2.2, color: '#ffffff' })]; } catch { /* ignore */ }
   fire({ particleCount: 90, spread: 120, startVelocity: 42, scalar: 2.2, shapes, origin: { x: .5, y: .6 }, ticks: 260 });
@@ -342,7 +343,7 @@ function abel() {
 }
 /* 5. "afterhours" */
 function afterhours() {
-  ctx.scene('t:AFTER HOURS', { opacity: 1 });
+  ctx.scene('c:XO', { opacity: 1, tint: '#ff1f3d' });
   const ov = overlay('neon red', '<div class="neon-t">After Hours<small>20.03.2020 · costume rouge, lunettes, Las Vegas</small></div>', 3200, () => { ctx.restore(); egg('afterhours'); });
   flicker($('.neon-t', ov));
 }
@@ -370,7 +371,7 @@ function noise() {
 }
 /* 7. "kissland" */
 function kissland() {
-  ctx.scene('t:KISS LAND', { tint: '#ff3d8b', opacity: 1 });
+  ctx.scene('c:XO', { tint: '#ff3d8b', opacity: 1 });
   const ov = overlay('neon pink', '<div class="neon-t">Kiss Land<small>10.09.2013 · le premier album studio</small></div>', 3000, () => { ctx.restore(); egg('kissland'); });
   flicker($('.neon-t', ov));
 }
@@ -396,7 +397,7 @@ function clock() {
 
 /* ---------- all found ---------- */
 function finale() {
-  ctx.scene('xo', { opacity: 1 }); ctx.P.pulse();
+  ctx.scene('c:XO', { opacity: 1, tint: '#ff1f3d' }); ctx.P.pulse();
   gsap().fromTo('.flash', { opacity: 1 }, { opacity: 0, duration: 1.2 });
   const end = Date.now() + 2600;
   (function frame() {
